@@ -1,0 +1,24 @@
+{
+  "groups": [
+    {
+      "name": "wechat",
+      "type": "com.tcxx.serve.wechat.WeChatConfiguration",
+      "sourceType": "com.tcxx.serve.wechat.WeChatConfiguration"
+    }
+  ],
+  "properties": [
+    {
+      "name": "wechat.app-id",
+      "type": "java.lang.String",
+      "description": "appId",
+      "sourceType": "com.tcxx.serve.wechat.WeChatConfiguration"
+    },
+    {
+      "name": "wechat.app-secret",
+      "type": "java.lang.String",
+      "description": "appSecret",
+      "sourceType": "com.tcxx.serve.wechat.WeChatConfiguration"
+    }
+  ],
+  "hints": []
+}

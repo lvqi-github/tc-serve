@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>tc-serve</artifactId>
+        <groupId>com.tcxx</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>tc-serve-web</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>tc-serve-web</name>
+
+    <properties>
+        <tc-serve-service.version>0.0.1-SNAPSHOT</tc-serve-service.version>
+        <tc-serve-wechat.version>0.0.1-SNAPSHOT</tc-serve-wechat.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.tcxx</groupId>
+            <artifactId>tc-serve-service</artifactId>
+            <version>${tc-serve-service.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.tcxx</groupId>
+            <artifactId>tc-serve-wechat</artifactId>
+            <version>${tc-serve-wechat.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <!-- 默认环境 -->
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <resources>
+                    <resource>
+                        <!--配置文件路径  -->
+                        <directory>src/resources</directory> <!--这里对应项目存放配置文件的目录-->
+                        <!--开启filtering功能  -->
+                        <filtering>true</filtering>
+                    </resource>
+                </resources>
+            </build>
+            <properties>
+                <!-- 环境标识，需要与配置文件的名称相对应 -->
+                <activatedProperties>dev</activatedProperties>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <build>
+                <resources>
+                    <resource>
+                        <!--配置文件路径  -->
+                        <directory>src/resources</directory> <!--这里对应项目存放配置文件的目录-->
+                        <!--开启filtering功能  -->
+                        <filtering>true</filtering>
+                    </resource>
+                </resources>
+            </build>
+            <properties>
+                <activatedProperties>prod</activatedProperties>
+            </properties>
+        </profile>
+    </profiles>
+
+</project>
