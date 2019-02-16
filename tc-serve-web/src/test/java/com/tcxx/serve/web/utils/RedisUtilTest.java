@@ -1,6 +1,6 @@
 package com.tcxx.serve.web.utils;
 
-import com.tcxx.serve.core.utils.RedisUtil;
+import com.tcxx.serve.core.redis.RedisUtil;
 import com.tcxx.serve.web.TcServeWebApplicationTests;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

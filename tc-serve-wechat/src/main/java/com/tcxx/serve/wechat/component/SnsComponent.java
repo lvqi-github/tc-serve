@@ -2,7 +2,9 @@ package com.tcxx.serve.wechat.component;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.tcxx.serve.core.exception.WeChatInvokeRuntimeException;
 import com.tcxx.serve.core.http.HttpClientUtil;
+import com.tcxx.serve.core.result.ResultCodeEnum;
 import com.tcxx.serve.wechat.WeChatClient;
 import com.tcxx.serve.wechat.WeChatErrorCode;
 import com.tcxx.serve.wechat.model.sns.SnsAccessToken;
@@ -14,7 +16,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * TODO 异常处理
+ *
  */
 public class SnsComponent extends AbstractComponent {
 
@@ -58,7 +60,7 @@ public class SnsComponent extends AbstractComponent {
      * @return 授权链接
      */
     public String getOAuth2CodeUrl(String redirect_uri, String scope, String state) {
-        return authorize_url + "?appid=" + weChatClient.getAppId() + "&redirect_uri=" + authorize_url + "&response_type=code&scope=" + scope + "&state=" + state + "&connect_redirect=1#wechat_redirect";
+        return authorize_url + "?appid=" + weChatClient.getAppId() + "&redirect_uri=" + redirect_uri + "&response_type=code&scope=" + scope + "&state=" + state + "#wechat_redirect";
     }
 
     /**
@@ -84,7 +86,7 @@ public class SnsComponent extends AbstractComponent {
         Object errCode = jsonObject.get("errcode");
         if (errCode != null) {
             //返回异常信息
-            throw new RuntimeException(WeChatErrorCode.getCause(jsonObject.getIntValue("errcode")));
+            throw new WeChatInvokeRuntimeException(ResultCodeEnum.ERROR3001, "根据code获取网页授权accessToken", jsonObject.getIntValue("errcode"), jsonObject.getString("errmsg"));
         }
         return JSON.toJavaObject(jsonObject, SnsAccessToken.class);
     }
@@ -136,7 +138,7 @@ public class SnsComponent extends AbstractComponent {
         Object errCode = jsonObject.get("errcode");
         if (errCode != null) {
             //返回异常信息
-            throw new RuntimeException(WeChatErrorCode.getCause(jsonObject.getIntValue("errcode")));
+            throw new WeChatInvokeRuntimeException(ResultCodeEnum.ERROR3001, "刷新网页授权accessToken", jsonObject.getIntValue("errcode"), jsonObject.getString("errmsg"));
         }
         return JSON.toJavaObject(jsonObject, SnsAccessToken.class);
     }
@@ -148,7 +150,7 @@ public class SnsComponent extends AbstractComponent {
      * @param openid 用户的唯一标识
      * @return 用户对象
      */
-    private SnsUser getSnsUser(String access_token, String openid) {
+    public SnsUser getSnsUser(String access_token, String openid) {
         if (StringUtils.isBlank(access_token)) {
             throw new IllegalArgumentException("access_token can't be null or empty");
         }
@@ -166,7 +168,7 @@ public class SnsComponent extends AbstractComponent {
         Object errCode = jsonObject.get("errcode");
         if (errCode != null) {
             //返回异常信息
-            throw new RuntimeException(WeChatErrorCode.getCause(jsonObject.getIntValue("errcode")));
+            throw new WeChatInvokeRuntimeException(ResultCodeEnum.ERROR3001, "拉取用户信息", jsonObject.getIntValue("errcode"), jsonObject.getString("errmsg"));
         }
         return JSON.toJavaObject(jsonObject, SnsUser.class);
     }

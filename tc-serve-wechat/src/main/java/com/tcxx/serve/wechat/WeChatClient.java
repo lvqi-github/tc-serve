@@ -1,6 +1,8 @@
 package com.tcxx.serve.wechat;
 
 import com.tcxx.serve.wechat.component.AbstractComponent;
+import com.tcxx.serve.wechat.component.BaseComponent;
+import com.tcxx.serve.wechat.component.MenuComponent;
 import com.tcxx.serve.wechat.component.SnsComponent;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,4 +49,25 @@ public class WeChatClient {
         components.put(key, component);
         return component;
     }
+
+    public BaseComponent base() {
+        String key = BaseComponent.class.getName();
+        if (components.containsKey(key)) {
+            return (BaseComponent) components.get(key);
+        }
+        BaseComponent component = new BaseComponent(this);
+        components.put(key, component);
+        return component;
+    }
+
+    public MenuComponent menu() {
+        String key = MenuComponent.class.getName();
+        if (components.containsKey(key)) {
+            return (MenuComponent) components.get(key);
+        }
+        MenuComponent component = new MenuComponent(this);
+        components.put(key, component);
+        return component;
+    }
+
 }

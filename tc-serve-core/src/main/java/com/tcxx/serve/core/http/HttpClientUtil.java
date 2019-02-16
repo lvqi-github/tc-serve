@@ -2,6 +2,8 @@ package com.tcxx.serve.core.http;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.tcxx.serve.core.exception.HttpRequestRuntimeException;
+import com.tcxx.serve.core.result.ResultCodeEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
@@ -38,7 +40,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * TODO 异常处理
+ *
  */
 @Slf4j
 public class HttpClientUtil {
@@ -114,7 +116,7 @@ public class HttpClientUtil {
             }
         } catch (IOException e) {
             log.error("http get error", e);
-            throw new RuntimeException(e.getMessage());
+            throw new HttpRequestRuntimeException(ResultCodeEnum.ERROR2001);
         }
         return JSON.parseObject(result);
     }
@@ -163,14 +165,13 @@ public class HttpClientUtil {
             httpStr = EntityUtils.toString(entity, "UTF-8");
         } catch (IOException e) {
             log.error("http post error", e);
-            throw new RuntimeException(e.getMessage());
+            throw new HttpRequestRuntimeException(ResultCodeEnum.ERROR2001);
         } finally {
             if (response != null) {
                 try {
                     EntityUtils.consume(response.getEntity());
                 } catch (IOException e) {
                     log.error("http post consume error", e);
-                    throw new RuntimeException(e.getMessage());
                 }
             }
         }
@@ -208,14 +209,13 @@ public class HttpClientUtil {
             httpStr = EntityUtils.toString(entity, "UTF-8");
         } catch (IOException e) {
             log.error("http post json error", e);
-            throw new RuntimeException(e.getMessage());
+            throw new HttpRequestRuntimeException(ResultCodeEnum.ERROR2001);
         } finally {
             if (response != null) {
                 try {
                     EntityUtils.consume(response.getEntity());
                 } catch (IOException e) {
                     log.error("http post json consume error", e);
-                    throw new RuntimeException(e.getMessage());
                 }
             }
         }
@@ -243,7 +243,7 @@ public class HttpClientUtil {
             });
         } catch (GeneralSecurityException e) {
             log.error("ssl GeneralSecurityException", e);
-            throw new RuntimeException(e.getMessage());
+            throw new HttpRequestRuntimeException(ResultCodeEnum.ERROR2002);
         }
         return sslsf;
     }

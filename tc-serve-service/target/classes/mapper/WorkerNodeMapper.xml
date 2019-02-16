@@ -2,24 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tcxx.serve.uid.mapper.WorkerNodeMapper">
 	<resultMap id="workerNodeRes" type="com.tcxx.serve.uid.entity.WorkerNodeEntity">
-		<id column="ID" jdbcType="BIGINT" property="id" />
-		<result column="HOST_NAME" jdbcType="VARCHAR" property="hostName" />
-		<result column="PORT" jdbcType="VARCHAR" property="port" />
-		<result column="TYPE" jdbcType="INTEGER" property="type" />
-		<result column="LAUNCH_DATE" jdbcType="DATE" property="launchDate" />
-		<result column="MODIFIED" jdbcType="TIMESTAMP" property="modified" />
-		<result column="CREATED" jdbcType="TIMESTAMP" property="created" />
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="host_name" jdbcType="VARCHAR" property="hostName" />
+		<result column="port" jdbcType="VARCHAR" property="port" />
+		<result column="type" jdbcType="INTEGER" property="type" />
+		<result column="launch_date" jdbcType="DATE" property="launchDate" />
+		<result column="modified" jdbcType="TIMESTAMP" property="modified" />
+		<result column="created" jdbcType="TIMESTAMP" property="created" />
 	</resultMap>
 
 	<insert id="addWorkerNode" useGeneratedKeys="true" keyProperty="id"
 		parameterType="com.tcxx.serve.uid.entity.WorkerNodeEntity">
-		INSERT INTO WORKER_NODE
-		(HOST_NAME,
-		PORT,
-		TYPE,
-		LAUNCH_DATE,
-		MODIFIED,
-		CREATED)
+		INSERT INTO worker_node
+		(host_name,
+		port,
+		type,
+		launch_date,
+		modified,
+		created)
 		VALUES (
 		#{hostName},
 		#{port},
@@ -31,16 +31,16 @@
 
 	<select id="getWorkerNodeByHostPort" resultMap="workerNodeRes">
 		SELECT
-		ID,
-		HOST_NAME,
-		PORT,
-		TYPE,
-		LAUNCH_DATE,
-		MODIFIED,
-		CREATED
+		id,
+		host_name,
+		port,
+		type,
+		launch_date,
+		modified,
+		created
 		FROM
-		WORKER_NODE
+		worker_node
 		WHERE
-		HOST_NAME = #{host} AND PORT = #{port}
+		host_name = #{host} AND port = #{port}
 	</select>
 </mapper>
