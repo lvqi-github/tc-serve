@@ -20,4 +20,10 @@ public class TcUserServiceTest extends TcServeWebApplicationTests {
         tcUser.setNickName("asdfsdf");
         tcUserService.insert(tcUser);
     }
+
+    @Test
+    public void testGetByUserId() {
+        TcUser user = tcUserService.getByUserId("cb31c4c127bb457dbf099bc3f7bec1fb");
+        System.out.println(user);
+    }
 }

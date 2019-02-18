@@ -9,5 +9,7 @@ public interface TcUserMapper {
 
     TcUser getByUserId(TcUserQuery query);
 
-    int updateAccessTokenAndRefreshToken(TcUserQuery query);
+    TcUser getByOpenId(TcUserQuery query);
+
+    int update(TcUser user);
 }

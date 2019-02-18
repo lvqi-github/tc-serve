@@ -1,10 +1,12 @@
 package com.tcxx.serve.service.entity;
 
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.Date;
 
 @Data
+@ToString
 public class TcUser {
 
     /** 用户id **/
@@ -26,19 +28,13 @@ public class TcUser {
     private String city;
 
     /** 国家，如中国为CN **/
-    private String county;
+    private String country;
 
     /** 微信用户id 只针对同一公众号 同一用户在不同的公众号openId不同 此情况使用unionId **/
     private String openId;
 
     /** 只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段 **/
     private String unionId;
-
-    /** 微信授权访问token **/
-    private String accessToken;
-
-    /** 用于刷新accessToken **/
-    private String refreshToken;
 
     /** 修改时间 **/
     private Date modified;

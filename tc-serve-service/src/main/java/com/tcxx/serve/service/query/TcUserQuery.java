@@ -8,8 +8,6 @@ public class TcUserQuery {
     /** 用户id **/
     private String id;
 
-    private String accessToken;
-
-    private String refreshToken;
+    private String openId;
 
 }

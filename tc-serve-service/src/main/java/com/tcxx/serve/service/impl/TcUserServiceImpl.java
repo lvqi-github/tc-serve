@@ -23,7 +23,12 @@ public class TcUserServiceImpl implements TcUserService {
     }
 
     @Override
-    public boolean updateAccessTokenAndRefreshToken(String userId, String accessToken, String refreshToken) {
-        return tcUserManager.updateAccessTokenAndRefreshToken(userId, accessToken, refreshToken);
+    public TcUser getByOpenId(String openId) {
+        return tcUserManager.getByOpenId(openId);
+    }
+
+    @Override
+    public boolean update(TcUser user) {
+        return tcUserManager.update(user);
     }
 }

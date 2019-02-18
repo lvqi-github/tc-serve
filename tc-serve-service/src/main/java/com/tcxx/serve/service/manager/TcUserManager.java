@@ -13,6 +13,8 @@ public interface TcUserManager {
 
     TcUser getByUserId(String userId);
 
-    boolean updateAccessTokenAndRefreshToken(String userId, String accessToken, String refreshToken);
+    TcUser getByOpenId(String openId);
+
+    boolean update(TcUser user);
 
 }

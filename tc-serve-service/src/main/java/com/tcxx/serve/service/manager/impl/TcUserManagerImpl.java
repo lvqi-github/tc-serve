@@ -36,11 +36,14 @@ public class TcUserManagerImpl implements TcUserManager {
     }
 
     @Override
-    public boolean updateAccessTokenAndRefreshToken(String userId, String accessToken, String refreshToken) {
+    public TcUser getByOpenId(String openId) {
         TcUserQuery query = new TcUserQuery();
-        query.setId(userId);
-        query.setAccessToken(accessToken);
-        query.setRefreshToken(refreshToken);
-        return 1 == tcUserMapper.updateAccessTokenAndRefreshToken(query);
+        query.setOpenId(openId);
+        return tcUserMapper.getByOpenId(query);
+    }
+
+    @Override
+    public boolean update(TcUser user) {
+        return 1 == tcUserMapper.update(user);
     }
 }

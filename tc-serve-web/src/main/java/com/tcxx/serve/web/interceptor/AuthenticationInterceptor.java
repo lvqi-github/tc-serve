@@ -11,8 +11,11 @@ import com.tcxx.serve.core.redis.RedisKeyPrefix;
 import com.tcxx.serve.core.redis.RedisUtil;
 import com.tcxx.serve.core.result.ResultCodeEnum;
 import com.tcxx.serve.service.TcUserService;
+import com.tcxx.serve.service.entity.TcUser;
 import com.tcxx.serve.wechat.WeChatClient;
 import com.tcxx.serve.wechat.model.sns.SnsAccessToken;
+import com.tcxx.serve.wechat.model.sns.SnsUser;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
@@ -23,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 import java.util.Objects;
 
+@Slf4j
 public class AuthenticationInterceptor implements HandlerInterceptor {
 
     @Autowired
@@ -37,10 +41,10 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         // 如果不是映射到方法直接通过
-        if(!(handler instanceof HandlerMethod)){
+        if (!(handler instanceof HandlerMethod)) {
             return true;
         }
-        HandlerMethod handlerMethod = (HandlerMethod)handler;
+        HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
 
         //检查是否有PassTokenValidation注释，有则跳过验证
@@ -53,7 +57,8 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
 
         // 从http请求头中取出token
         String token = request.getHeader("Authorization");
-        if (StringUtils.isBlank(token)){
+        log.info("jwt token=" + token);
+        if (StringUtils.isBlank(token)) {
             throw new RuntimeException("校验token失败, token为空");
         }
 
@@ -64,45 +69,63 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                 //获取签发者
                 String issuer = JavaWebTokenUtil.getIssuer(token);
                 //判断签发者是否合法
-                if (!JavaWebTokenUtil.TC_BALL_TOKEN_ISSUER.equals(issuer)){
+                if (!JavaWebTokenUtil.TC_BALL_TOKEN_ISSUER.equals(issuer)) {
                     throw new JavaWebTokenVerifyRuntimeException(ResultCodeEnum.ERROR4501);
                 }
                 //获取用户id
                 String userId = JavaWebTokenUtil.getAudience(token);
                 //校验token
                 boolean res = JavaWebTokenUtil.verifyToken(token, JavaWebTokenUtil.TC_BALL_TOKEN_SECRET);
-                if(res){ // 校验通过
+                if (res) { // 校验通过
                     // 校验微信授权access_token是否有效，无效则刷新
                     boolean accessTokenHas = redisUtil.hasKey(RedisKeyPrefix.getTcBallRedisKey(RedisKeyPrefix.TC_BALL_WECHAT_AUTH_ACCESS_TOKEN, userId));
-                    if (!accessTokenHas){ //缓存中没有说明已过期 进行刷新
+                    if (!accessTokenHas) { //缓存中没有说明已过期 进行刷新
                         Object refreshToken = redisUtil.get(RedisKeyPrefix.getTcBallRedisKey(RedisKeyPrefix.TC_BALL_WECHAT_AUTH_REFRESH_TOKEN, userId));
-                        if (Objects.isNull(refreshToken)){ //缓存中没有说明已29天没有登录过 要重新授权
+                        if (Objects.isNull(refreshToken)) { //缓存中没有说明已29天没有登录过 要重新授权
                             throw new WeChatAuthorizeRuntimeException(ResultCodeEnum.ERROR501);
                         }
                         SnsAccessToken snsAccessToken = weChatClient.sns().refreshToken(refreshToken.toString());
-                        //TODO 这里要根据refreshToken是否改变决定逻辑 改变则accessToken、refreshToken缓存都更新 不改变则只更新accessToken（暂时先都更新 了解微信逻辑后处理）
-                        //更新mysql
-                        boolean b = tcUserService.updateAccessTokenAndRefreshToken(userId, snsAccessToken.getAccessToken(), snsAccessToken.getRefreshToken());
-                        if (!b){
-                            throw new DataBaseOperateRuntimeException(ResultCodeEnum.ERROR2501);
+                        //更新redis accessToken
+                        redisUtil.set(RedisKeyPrefix.getTcBallRedisKey(RedisKeyPrefix.TC_BALL_WECHAT_AUTH_ACCESS_TOKEN, userId), snsAccessToken.getAccessToken(), 110 * 60); //110分钟
+                        // 获取微信用户信息
+                        SnsUser snsUser = weChatClient.sns().getSnsUser(snsAccessToken.getAccessToken(), snsAccessToken.getOpenId());
+                        //判断与mysql中的用户信息是否一致 不一致则更新
+                        TcUser tcUser = tcUserService.getByUserId(userId);
+                        if (!verifyUserInfoIsConsistent(tcUser, snsUser)){
+                            TcUser updateUser = buildTcUser(snsUser);
+                            updateUser.setId(userId);
+                            boolean update = tcUserService.update(updateUser);
+                            if (!update){
+                                throw new DataBaseOperateRuntimeException(ResultCodeEnum.ERROR2501);
+                            }
                         }
-                        //更新redis
-                        redisUtil.set(RedisKeyPrefix.getTcBallRedisKey(RedisKeyPrefix.TC_BALL_WECHAT_AUTH_ACCESS_TOKEN, userId), snsAccessToken.getAccessToken(),  110 * 60); //110分钟
-                        redisUtil.set(RedisKeyPrefix.getTcBallRedisKey(RedisKeyPrefix.TC_BALL_WECHAT_AUTH_REFRESH_TOKEN, userId), snsAccessToken.getRefreshToken(),  29 * 24 * 60 * 60); //29天
                     }
                     return true;
-                }else {// 校验失败
-                    // token已失效，检查微信授权refresh_token是否失效，失效提示重新授权；未失效返回刷新token
-                    boolean refreshTokenHas = redisUtil.hasKey(RedisKeyPrefix.getTcBallRedisKey(RedisKeyPrefix.TC_BALL_WECHAT_AUTH_REFRESH_TOKEN, userId));
-                    if (!refreshTokenHas){
-                        throw new WeChatAuthorizeRuntimeException(ResultCodeEnum.ERROR501); //重新授权
-                    }else {
-                        throw new WeChatAuthorizeRuntimeException(ResultCodeEnum.ERROR501); //提示进行刷新token
-                    }
+                } else {// 校验失败
+                    // token已失效，因生成的token有效期为31天 大于 微信授权refresh_token的有效期，所以直接返回重新授权
+                    throw new WeChatAuthorizeRuntimeException(ResultCodeEnum.ERROR501); //重新授权
                 }
             }
         }
 
         return false;
     }
+
+    private boolean verifyUserInfoIsConsistent(TcUser tcUser, SnsUser snsUser) {
+        String userStr = String.format("%s_%s_%s_%s_%s_%s", tcUser.getNickName(), tcUser.getHeadImgUrl(), tcUser.getSex(), tcUser.getProvince(), tcUser.getCity(), tcUser.getCountry());
+        String snsUserStr = String.format("%s_%s_%s_%s_%s_%s", snsUser.getNickName(), snsUser.getHeadImgUrl(), snsUser.getSex(), snsUser.getProvince(), snsUser.getCity(), snsUser.getCountry());
+        return userStr.equals(snsUserStr);
+    }
+
+    private TcUser buildTcUser(SnsUser snsUser){
+        TcUser tcUser = new TcUser();
+        tcUser.setNickName(snsUser.getNickName());
+        tcUser.setHeadImgUrl(snsUser.getHeadImgUrl());
+        tcUser.setSex(snsUser.getSex());
+        tcUser.setProvince(snsUser.getProvince());
+        tcUser.setCity(snsUser.getCity());
+        tcUser.setCountry(snsUser.getCountry());
+        return tcUser;
+    }
+
 }
