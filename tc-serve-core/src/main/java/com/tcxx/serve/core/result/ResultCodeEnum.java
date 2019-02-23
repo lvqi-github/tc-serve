@@ -12,7 +12,8 @@ public enum ResultCodeEnum {
     ERROR("-1", "系统异常"),
     SUCCESS("1000", "成功"),
 
-    ERROR501("1501", "微信登录授权已过期，重新授权"),
+    ERROR1501("1501", "微信登录授权已过期，重新授权"),
+    ERROR1502("1502", "用户名/密码错误"),
 
     ERROR2001("2001", "Http请求异常"),
     ERROR2002("2002", "Http请求SSL安全连接创建异常"),
@@ -23,7 +24,8 @@ public enum ResultCodeEnum {
 
     ERROR4001("4001", "参数校验异常[{0}]"),
 
-    ERROR4501("4501", "token签发者不合法");
+    ERROR4501("4501", "token签发者不合法"),
+    ERROR4502("4502", "token失效，重新登陆");
 
 
 

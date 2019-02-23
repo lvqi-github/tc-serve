@@ -17,7 +17,7 @@ public class IndexController {
 
     @WeChatLoginTokenValidation
     @RequestMapping("/getNewestArticles")
-    public Result getNewestArticles(Integer page, Integer pageSize) {
+    public Result<Map<String, Object>> getNewestArticles(Integer page, Integer pageSize) {
         int len = (32 - pageSize * (page - 1)) < pageSize ? (32 - pageSize * (page - 1)) : pageSize;
         List<Map<String, Object>> list = new ArrayList<>();
         for (int i = 0; i < len; i++) {

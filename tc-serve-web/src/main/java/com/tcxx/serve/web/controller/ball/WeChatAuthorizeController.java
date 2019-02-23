@@ -74,8 +74,8 @@ public class WeChatAuthorizeController {
             userId = user.getId();
         }
         // accessToken、refreshToken缓存redis
-        redisUtil.set(RedisKeyPrefix.getTcBallRedisKey(RedisKeyPrefix.TC_BALL_WECHAT_AUTH_ACCESS_TOKEN, userId), snsAccessToken.getAccessToken(),  110 * 60); //110分钟
-        redisUtil.set(RedisKeyPrefix.getTcBallRedisKey(RedisKeyPrefix.TC_BALL_WECHAT_AUTH_REFRESH_TOKEN, userId), snsAccessToken.getRefreshToken(),  29 * 24 * 60 * 60); //29天
+        redisUtil.set(RedisKeyPrefix.getTcBallRedisKey(RedisKeyPrefix.TC_BALL_WECHAT_AUTH_ACCESS_TOKEN, userId), snsAccessToken.getAccessToken(),  120 * 60); //120分钟
+        redisUtil.set(RedisKeyPrefix.getTcBallRedisKey(RedisKeyPrefix.TC_BALL_WECHAT_AUTH_REFRESH_TOKEN, userId), snsAccessToken.getRefreshToken(),  30 * 24 * 60 * 60); //30天
         // 生成JavaWebToken
         String token = JavaWebTokenUtil.createToken(userId, JavaWebTokenUtil.TC_BALL_TOKEN_SECRET, JavaWebTokenUtil.TC_BALL_TOKEN_ISSUER, JavaWebTokenUtil.TC_BALL_TOKEN_EXPIRE_HOURS);
 

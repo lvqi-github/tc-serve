@@ -26,13 +26,28 @@ public class JavaWebTokenUtil {
      **/
     public static final int TC_BALL_TOKEN_EXPIRE_HOURS = 31 * 24;
 
+    //---------------------------------------------------------------------------------------------------
+
+    /**
+     * tc-admin token加密秘钥
+     **/
+    public static final String TC_ADMIN_TOKEN_SECRET = "0oCMlAytPbsUhcFeMldadj1ddcTdRQuo";
+    /**
+     * tc-admin token 签发者
+     **/
+    public static final String TC_ADMIN_TOKEN_ISSUER = "tc-admin";
+    /**
+     * tc-admin token过期时间7天
+     **/
+    public static final int TC_ADMIN_TOKEN_EXPIRE_HOURS = 7 * 24;
+
     public static String createToken(String userId, String secret, String issuer, int expire) {
         Algorithm algorithm = Algorithm.HMAC256(secret);
         JWTCreator.Builder builder = JWT.create()
                 .withIssuer(issuer) // 签发者：签名由谁生成
                 .withAudience(userId) // 受众：谁接受的签名
-//                .withExpiresAt(DateUtils.addHours(new Date(), expire)); // 签名过期时间
-                .withExpiresAt(DateUtils.addMinutes(new Date(), 5)); // 测试使用5分钟
+                .withExpiresAt(DateUtils.addHours(new Date(), expire)); // 签名过期时间
+//                .withExpiresAt(DateUtils.addMinutes(new Date(), 5)); // 测试使用5分钟
         return builder.sign(algorithm);
     }
 
