@@ -7,7 +7,7 @@ import com.tcxx.serve.core.jwt.JavaWebTokenUtil;
 import com.tcxx.serve.core.result.Result;
 import com.tcxx.serve.core.result.ResultBuild;
 import com.tcxx.serve.core.result.ResultCodeEnum;
-import com.tcxx.serve.web.domain.AdminUser;
+import com.tcxx.serve.web.domain.admin.AdminUser;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

@@ -17,7 +17,7 @@ public class Result<T> {
 
     private T value; // 非列表数据实体
 
-    private long totalElements = 0; //列表数据总条数
+    private int totalElements = 0; //列表数据总条数
 
     private List<T> values; // 列表数据
 }

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tcxx.serve.service.mapper.TcAuthorMapper">
+
+    <resultMap id="BaseResultMap" type="com.tcxx.serve.service.entity.TcAuthor">
+        <result column="author_id" property="authorId" />
+        <result column="author_name" property="authorName" />
+        <result column="platform_source" property="platformSource" />
+        <result column="modified" property="modified" />
+        <result column="created" property="created" />
+    </resultMap>
+
+    <sql id="TbName">
+        tc_author
+    </sql>
+
+    <!-- 用于select查询、insert的公用抽取的列 -->
+    <sql id="TbColumns">
+		author_id,author_name,platform_source,modified,created
+	</sql>
+
+    <insert id="insert" parameterType="com.tcxx.serve.service.entity.TcAuthor">
+        INSERT INTO <include refid="TbName"/> (
+        <include refid="TbColumns"/>
+        )  VALUES (
+        #{authorId},
+        #{authorName},
+        #{platformSource},
+        NOW(),
+        NOW()
+        )
+    </insert>
+
+    <update id="update" parameterType="com.tcxx.serve.service.entity.TcAuthor" >
+        UPDATE <include refid="TbName"/>
+        SET
+        author_name = #{authorName},
+        platform_source = #{platformSource},
+        modified = now()
+        WHERE
+        author_id = #{authorId}
+    </update>
+
+    <select id="getByAuthorId" resultMap="BaseResultMap" parameterType="com.tcxx.serve.service.query.TcAuthorQuery" >
+        SELECT <include refid="TbColumns"/>
+        FROM <include refid="TbName"/>
+        WHERE
+        author_id = #{authorId}
+    </select>
+
+    <select id="listAll" resultMap="BaseResultMap">
+        SELECT <include refid="TbColumns"/>
+        FROM <include refid="TbName"/>
+        ORDER BY created DESC
+    </select>
+
+    <select id="listAllPage" parameterType="com.tcxx.serve.service.query.TcAuthorQuery" resultMap="BaseResultMap">
+        SELECT <include refid="TbColumns"/>
+        FROM <include refid="TbName"/>
+        ORDER BY created DESC
+        LIMIT #{pagingRecordStart}, #{pagingPageSize}
+    </select>
+
+    <select id="countAll" resultType="java.lang.Integer" >
+        SELECT
+        COUNT(1)
+        FROM
+        <include refid="TbName"/>
+    </select>
+
+</mapper>

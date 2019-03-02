@@ -25,10 +25,10 @@ public enum ResultCodeEnum {
     ERROR4001("4001", "参数校验异常[{0}]"),
 
     ERROR4501("4501", "token签发者不合法"),
-    ERROR4502("4502", "token失效，重新登陆");
+    ERROR4502("4502", "token失效，重新登陆"),
 
-
-
+    ERROR5001("5001", "七牛云文件操作异常"),
+    ERROR5002("5002", "文件操作异常");
 
     /** 编码 */
     private String code;

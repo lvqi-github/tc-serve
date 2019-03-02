@@ -2,7 +2,7 @@ package com.tcxx.serve.web.resolver;
 
 import com.tcxx.serve.core.annotation.AdminLoginUser;
 import com.tcxx.serve.core.jwt.JavaWebTokenUtil;
-import com.tcxx.serve.web.domain.AdminUser;
+import com.tcxx.serve.web.domain.admin.AdminUser;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;

@@ -39,7 +39,9 @@
 
         <fastjson.version>1.2.47</fastjson.version>
         <guava.version>19.0</guava.version>
-        <java-jwt>3.4.0</java-jwt>
+        <java-jwt.version>3.4.0</java-jwt.version>
+
+        <qiniu-java-sdk.version>7.2.17</qiniu-java-sdk.version>
     </properties>
 
     <dependencyManagement>
@@ -83,7 +85,12 @@
             <dependency>
                 <groupId>com.auth0</groupId>
                 <artifactId>java-jwt</artifactId>
-                <version>${java-jwt}</version>
+                <version>${java-jwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.qiniu</groupId>
+                <artifactId>qiniu-java-sdk</artifactId>
+                <version>${qiniu-java-sdk.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

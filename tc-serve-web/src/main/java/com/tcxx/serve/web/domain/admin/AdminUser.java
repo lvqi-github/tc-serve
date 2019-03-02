@@ -1,4 +1,4 @@
-package com.tcxx.serve.web.domain;
+package com.tcxx.serve.web.domain.admin;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

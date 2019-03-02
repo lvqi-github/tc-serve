@@ -1,0 +1,42 @@
+{
+  "groups": [
+    {
+      "name": "qiniu",
+      "type": "com.tcxx.serve.core.qiniu.QiNiuProperties",
+      "sourceType": "com.tcxx.serve.core.qiniu.QiNiuProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "qiniu.access-key",
+      "type": "java.lang.String",
+      "description": "七牛accessKey",
+      "sourceType": "com.tcxx.serve.core.qiniu.QiNiuProperties"
+    },
+    {
+      "name": "qiniu.bucket",
+      "type": "java.lang.String",
+      "description": "七牛存储空间名称",
+      "sourceType": "com.tcxx.serve.core.qiniu.QiNiuProperties"
+    },
+    {
+      "name": "qiniu.cdn-prefix-of-bucket",
+      "type": "java.lang.String",
+      "description": "外链默认域名",
+      "sourceType": "com.tcxx.serve.core.qiniu.QiNiuProperties"
+    },
+    {
+      "name": "qiniu.secret-key",
+      "type": "java.lang.String",
+      "description": "七牛secretKey",
+      "sourceType": "com.tcxx.serve.core.qiniu.QiNiuProperties"
+    },
+    {
+      "name": "qiniu.zone",
+      "type": "java.lang.String",
+      "description": "[{'zone0':'华东'}, {'zone1':'华北'},{'zone2':'华南'},{'zoneNa0':'北美'},{'zoneAs0':'东南亚'}]",
+      "sourceType": "com.tcxx.serve.core.qiniu.QiNiuProperties"
+    }
+  ],
+  "hints": []
+}
