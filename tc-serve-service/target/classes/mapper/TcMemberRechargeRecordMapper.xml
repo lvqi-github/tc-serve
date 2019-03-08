@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tcxx.serve.service.mapper.TcMemberRechargeRecordMapper">
+
+    <resultMap id="BaseResultMap" type="com.tcxx.serve.service.entity.TcMemberRechargeRecord">
+        <result column="recharge_record_no" property="rechargeRecordNo" />
+        <result column="recharge_package_id" property="rechargePackageId" />
+        <result column="recharge_package_desc" property="rechargePackageDesc" />
+        <result column="recharge_amount" property="rechargeAmount" />
+        <result column="days_of_validity" property="daysOfValidity" />
+        <result column="validity_start_date" property="validityStartDate" />
+        <result column="validity_end_date" property="validityEndDate" />
+        <result column="user_id" property="userId" />
+        <result column="record_valid_status" property="recordValidStatus" />
+        <result column="order_no" property="orderNo" />
+        <result column="modified" property="modified" />
+        <result column="created" property="created" />
+    </resultMap>
+
+    <sql id="TbName">
+        tc_member_recharge_record
+    </sql>
+
+    <!-- 用于select查询、insert的公用抽取的列 -->
+    <sql id="TbColumns">
+		recharge_record_no,
+		recharge_package_id,
+		recharge_package_desc,
+		recharge_amount,
+		days_of_validity,
+		validity_start_date,
+		validity_end_date,
+		user_id,
+		record_valid_status,
+		order_no,
+		modified,
+		created
+	</sql>
+
+    <insert id="insert" parameterType="com.tcxx.serve.service.entity.TcMemberRechargeRecord">
+        INSERT INTO <include refid="TbName"/> (
+        <include refid="TbColumns"/>
+        )  VALUES (
+        #{rechargeRecordNo},
+        #{rechargePackageId},
+        #{rechargePackageDesc},
+        #{rechargeAmount},
+        #{daysOfValidity},
+        #{validityStartDate},
+        #{validityEndDate},
+        #{userId},
+        #{recordValidStatus},
+        #{orderNo},
+        NOW(),
+        NOW()
+        )
+    </insert>
+
+    <update id="updateRecordValidStatus" parameterType="com.tcxx.serve.service.entity.TcMemberRechargeRecord" >
+        UPDATE <include refid="TbName"/>
+        SET
+        record_valid_status = #{recordValidStatus},
+        modified = now()
+        WHERE
+        recharge_record_no = #{rechargeRecordNo}
+    </update>
+
+    <select id="getByRechargeRecordNo" resultMap="BaseResultMap" parameterType="com.tcxx.serve.service.query.TcMemberRechargeRecordQuery" >
+        SELECT <include refid="TbColumns"/>
+        FROM <include refid="TbName"/>
+        WHERE
+        recharge_record_no = #{rechargeRecordNo}
+    </select>
+
+    <select id="listByCondition" parameterType="com.tcxx.serve.service.query.TcMemberRechargeRecordQuery" resultMap="BaseResultMap">
+        SELECT <include refid="TbColumns"/>
+        FROM <include refid="TbName"/>
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="userId != null and userId != ''"> AND user_id = #{userId}</if>
+        </trim>
+        ORDER BY created DESC
+        LIMIT #{pagingRecordStart}, #{pagingPageSize}
+    </select>
+
+    <select id="countByCondition" resultType="java.lang.Integer" parameterType="com.tcxx.serve.service.query.TcMemberRechargeRecordQuery">
+        SELECT
+        COUNT(1)
+        FROM
+        <include refid="TbName"/>
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="userId != null and userId != ''"> AND user_id = #{userId}</if>
+        </trim>
+    </select>
+
+</mapper>

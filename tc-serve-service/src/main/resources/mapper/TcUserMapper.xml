@@ -71,4 +71,24 @@
 		    id = #{id}
 	</update>
 
+    <select id="listByCondition" parameterType="com.tcxx.serve.service.query.TcUserQuery" resultMap="BaseResultMap">
+        SELECT <include refid="TbColumns"/>
+        FROM <include refid="TbName"/>
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="nickName != null and nickName != ''"> AND nick_name = #{nickName}</if>
+        </trim>
+        ORDER BY created DESC
+        LIMIT #{pagingRecordStart}, #{pagingPageSize}
+    </select>
+
+    <select id="countByCondition" resultType="java.lang.Integer" parameterType="com.tcxx.serve.service.query.TcUserQuery">
+        SELECT
+        COUNT(1)
+        FROM
+        <include refid="TbName"/>
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="nickName != null and nickName != ''"> AND nick_name = CONCAT('%',#{nickName},'%')</if>
+        </trim>
+    </select>
+
 </mapper>

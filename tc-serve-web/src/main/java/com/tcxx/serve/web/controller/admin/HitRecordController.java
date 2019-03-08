@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.*;
 
 @RestController
-@RequestMapping("/admin/record")
+@RequestMapping("/admin/hitRecord")
 public class HitRecordController {
 
     @Autowired

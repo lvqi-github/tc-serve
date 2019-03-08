@@ -22,8 +22,8 @@ import java.util.Objects;
 public class LoginController {
 
     @PassTokenValidation
-    @RequestMapping(value = "/userLogin", method = RequestMethod.POST)
-    public Result<String> userLogin(String username, String password) {
+    @RequestMapping(value = "/adminUserLogin", method = RequestMethod.POST)
+    public Result<String> adminUserLogin(String username, String password) {
         if (StringUtils.isBlank(username)){
             return ResultBuild.wrapResult(ResultCodeEnum.ERROR4001, "用户名不能为空");
         }
@@ -43,8 +43,8 @@ public class LoginController {
     }
 
     @AdminLoginTokenValidation
-    @RequestMapping("/getUserInfo")
-    public Result<Map<String, Object>> getUserInfo(@AdminLoginUser AdminUser adminUser) {
+    @RequestMapping("/getAdminUserInfo")
+    public Result<Map<String, Object>> getAdminUserInfo(@AdminLoginUser AdminUser adminUser) {
         if (Objects.isNull(adminUser)){
             return ResultBuild.wrapResult(ResultCodeEnum.ERROR4001, "用户信息不能为空");
         }

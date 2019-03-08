@@ -3,8 +3,11 @@ package com.tcxx.serve.service.impl;
 import com.tcxx.serve.service.TcUserService;
 import com.tcxx.serve.service.entity.TcUser;
 import com.tcxx.serve.service.manager.TcUserManager;
+import com.tcxx.serve.service.query.TcUserQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class TcUserServiceImpl implements TcUserService {
@@ -30,5 +33,15 @@ public class TcUserServiceImpl implements TcUserService {
     @Override
     public boolean update(TcUser user) {
         return tcUserManager.update(user);
+    }
+
+    @Override
+    public List<TcUser> listByCondition(TcUserQuery query) {
+        return tcUserManager.listByCondition(query);
+    }
+
+    @Override
+    public Integer countByCondition(TcUserQuery query) {
+        return tcUserManager.countByCondition(query);
     }
 }

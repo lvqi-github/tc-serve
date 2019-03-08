@@ -9,6 +9,7 @@ import com.tcxx.serve.service.query.TcUserQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -45,5 +46,15 @@ public class TcUserManagerImpl implements TcUserManager {
     @Override
     public boolean update(TcUser user) {
         return 1 == tcUserMapper.update(user);
+    }
+
+    @Override
+    public List<TcUser> listByCondition(TcUserQuery query) {
+        return tcUserMapper.listByCondition(query);
+    }
+
+    @Override
+    public Integer countByCondition(TcUserQuery query) {
+        return tcUserMapper.countByCondition(query);
     }
 }
