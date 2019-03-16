@@ -19,4 +19,12 @@ public class WeChatConfiguration {
      * appSecret
      */
     private String appSecret;
+    /**
+     * 用于微信接入服务器有效性验证及消息事件验证
+     */
+    private String accessToken;
+    /**
+     * 公众号微信id
+     */
+    private String publicAccountWechatId;
 }

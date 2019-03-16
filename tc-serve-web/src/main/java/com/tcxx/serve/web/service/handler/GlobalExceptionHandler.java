@@ -1,4 +1,4 @@
-package com.tcxx.serve.web.handler;
+package com.tcxx.serve.web.service.handler;
 
 import com.tcxx.serve.core.exception.CustomRuntimeException;
 import com.tcxx.serve.core.result.Result;

@@ -31,10 +31,13 @@
         <mysql.version>8.0.13</mysql.version>
         <druid.version>1.1.10</druid.version>
         <mybatis.version>2.0.0</mybatis.version>
+        <quartz.version>2.3.0</quartz.version>
 
         <commons-lang.version>2.6</commons-lang.version>
         <commons-pool2.version>2.6.0</commons-pool2.version>
         <commons-io.version>2.4</commons-io.version>
+        <commons-codec.version>1.10</commons-codec.version>
+        <xstream.version>1.4.10</xstream.version>
         <httpmime.version>4.5.2</httpmime.version>
 
         <fastjson.version>1.2.47</fastjson.version>
@@ -58,6 +61,17 @@
                 <version>${druid.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.quartz-scheduler</groupId>
+                <artifactId>quartz</artifactId>
+                <version>${quartz.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>c3p0</artifactId>
+                        <groupId>com.mchange</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>${mybatis.version}</version>
@@ -76,6 +90,16 @@
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
                 <version>${commons-io.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${commons-codec.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.thoughtworks.xstream</groupId>
+                <artifactId>xstream</artifactId>
+                <version>${xstream.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>

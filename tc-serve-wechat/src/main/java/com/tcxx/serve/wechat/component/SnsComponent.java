@@ -75,13 +75,13 @@ public class SnsComponent extends AbstractComponent {
             throw new IllegalArgumentException("code can't be null or empty");
         }
         //构建请求参数
-        Map<String, Object> parms = new LinkedHashMap<>();
-        parms.put("appid", weChatClient.getAppId());
-        parms.put("secret", weChatClient.getAppSecret());
-        parms.put("code", code);
-        parms.put("grant_type", "authorization_code");
+        Map<String, Object> params = new LinkedHashMap<>();
+        params.put("appid", weChatClient.getAppId());
+        params.put("secret", weChatClient.getAppSecret());
+        params.put("code", code);
+        params.put("grant_type", "authorization_code");
 
-        JSONObject jsonObject = HttpClientUtil.doGet("https://api.weixin.qq.com/sns/oauth2/access_token", parms);
+        JSONObject jsonObject = HttpClientUtil.doGet("https://api.weixin.qq.com/sns/oauth2/access_token", params);
 
         Object errCode = jsonObject.get("errcode");
         if (errCode != null) {
@@ -128,12 +128,12 @@ public class SnsComponent extends AbstractComponent {
             throw new IllegalArgumentException("refresh_token can't be null or empty");
         }
         //构建请求参数
-        Map<String, Object> parms = new HashMap<>();
-        parms.put("appid", weChatClient.getAppId());
-        parms.put("grant_type", "refresh_token");
-        parms.put("refresh_token", refresh_token);
+        Map<String, Object> params = new HashMap<>();
+        params.put("appid", weChatClient.getAppId());
+        params.put("grant_type", "refresh_token");
+        params.put("refresh_token", refresh_token);
 
-        JSONObject jsonObject = HttpClientUtil.doGet("https://api.weixin.qq.com/sns/oauth2/refresh_token", parms);
+        JSONObject jsonObject = HttpClientUtil.doGet("https://api.weixin.qq.com/sns/oauth2/refresh_token", params);
 
         Object errCode = jsonObject.get("errcode");
         if (errCode != null) {
@@ -158,12 +158,12 @@ public class SnsComponent extends AbstractComponent {
             throw new IllegalArgumentException("openid can't be null or empty");
         }
         //构建请求参数
-        Map<String, Object> parms = new HashMap<>();
-        parms.put("access_token", access_token);
-        parms.put("openid", openid);
-        parms.put("lang", "zh_CN"); // 国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英语
+        Map<String, Object> params = new HashMap<>();
+        params.put("access_token", access_token);
+        params.put("openid", openid);
+        params.put("lang", "zh_CN"); // 国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英语
 
-        JSONObject jsonObject = HttpClientUtil.doGet("https://api.weixin.qq.com/sns/userinfo", parms);
+        JSONObject jsonObject = HttpClientUtil.doGet("https://api.weixin.qq.com/sns/userinfo", params);
 
         Object errCode = jsonObject.get("errcode");
         if (errCode != null) {

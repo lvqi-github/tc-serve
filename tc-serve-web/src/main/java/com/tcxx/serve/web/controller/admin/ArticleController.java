@@ -67,6 +67,8 @@ public class ArticleController {
             resp.setArticleStatusName(ArticleStatusEnum.getByStatus(bean.getArticleStatus()));
             resp.setStartTime(bean.getStartTime());
             resp.setEndTime(bean.getEndTime());
+            resp.setPushJobStatus(bean.getPushJobStatus());
+            resp.setPushJobStatusName(ArticlePushJobStatusEnum.getByStatus(bean.getPushJobStatus()));
             resp.setModified(bean.getModified());
             resp.setCreated(bean.getCreated());
             articleListResps.add(resp);
@@ -75,6 +77,22 @@ public class ArticleController {
         Result<ArticleListResp> result = ResultBuild.wrapSuccess();
         result.setTotalElements(count);
         result.setValues(articleListResps);
+        return result;
+    }
+
+    @AdminLoginTokenValidation
+    @RequestMapping(value = "/articleGeneratePushJob", method = RequestMethod.POST)
+    public Result<Boolean> articleGeneratePushJob(String articleId) {
+        if (StringUtils.isBlank(articleId)){
+            return ResultBuild.wrapResult(ResultCodeEnum.ERROR4001, "articleId不能为空");
+        }
+
+        boolean generateRes = tcArticleService.generatePushJob(articleId);
+        if (!generateRes) {
+            return ResultBuild.wrapResult(ResultCodeEnum.ERROR10001);
+        }
+        Result<Boolean> result = ResultBuild.wrapSuccess();
+        result.setValue(true);
         return result;
     }
 

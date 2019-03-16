@@ -1,6 +1,7 @@
 package com.tcxx.serve.service.manager.impl;
 
 import com.tcxx.serve.service.entity.TcArticle;
+import com.tcxx.serve.service.enumtype.ArticlePushJobStatusEnum;
 import com.tcxx.serve.service.manager.TcArticleManager;
 import com.tcxx.serve.service.mapper.TcArticleMapper;
 import com.tcxx.serve.service.query.TcArticleQuery;
@@ -20,6 +21,7 @@ public class TcArticleManagerImpl implements TcArticleManager {
     public boolean insert(TcArticle tcArticle) {
         String uuid = UUID.randomUUID().toString().replaceAll("-", "");
         tcArticle.setArticleId(uuid);
+        tcArticle.setPushJobStatus(ArticlePushJobStatusEnum.PUSH_JOB_NOT_GENERATED.getStatus());
         int i = tcArticleMapper.insert(tcArticle);
         return 1 == i;
     }
@@ -27,6 +29,13 @@ public class TcArticleManagerImpl implements TcArticleManager {
     @Override
     public boolean update(TcArticle tcArticle) {
         return 1 == tcArticleMapper.update(tcArticle);
+    }
+
+    @Override
+    public boolean updatePushJobStatusGenerated(String articleId) {
+        TcArticle tcArticle = new TcArticle();
+        tcArticle.setArticleId(articleId);
+        return 1 == tcArticleMapper.updatePushJobStatusGenerated(tcArticle);
     }
 
     @Override

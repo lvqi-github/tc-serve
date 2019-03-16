@@ -11,6 +11,8 @@ public interface TcArticleMapper {
 
     int update(TcArticle tcArticle);
 
+    int updatePushJobStatusGenerated(TcArticle tcArticle);
+
     TcArticle getByArticleId(TcArticleQuery query);
 
     List<TcArticle> listByCondition(TcArticleQuery query);

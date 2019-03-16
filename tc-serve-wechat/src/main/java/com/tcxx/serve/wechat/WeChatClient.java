@@ -1,9 +1,8 @@
 package com.tcxx.serve.wechat;
 
-import com.tcxx.serve.wechat.component.AbstractComponent;
-import com.tcxx.serve.wechat.component.BaseComponent;
-import com.tcxx.serve.wechat.component.MenuComponent;
-import com.tcxx.serve.wechat.component.SnsComponent;
+import com.tcxx.serve.core.redis.RedisKeyPrefix;
+import com.tcxx.serve.core.redis.RedisUtil;
+import com.tcxx.serve.wechat.component.*;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,6 +14,8 @@ import java.util.Map;
 public class WeChatClient {
 
     private WeChatConfiguration weChatConfiguration;
+
+    private RedisUtil redisUtil;
 
     /**
      * appId
@@ -29,10 +30,15 @@ public class WeChatClient {
     private final String appSecret;
 
     @Autowired
-    public WeChatClient(WeChatConfiguration weChatConfiguration) {
+    public WeChatClient(WeChatConfiguration weChatConfiguration, RedisUtil redisUtil) {
         this.weChatConfiguration = weChatConfiguration;
+        this.redisUtil = redisUtil;
         this.appId = weChatConfiguration.getAppId();
         this.appSecret = weChatConfiguration.getAppSecret();
+    }
+
+    public String getBaseAccessToken() {
+        return redisUtil.get(RedisKeyPrefix.getTcAdminRedisKey(RedisKeyPrefix.TC_ADMIN_WECHAT_BASE_ACCESS_TOKEN, "key")).toString();
     }
 
     /**
@@ -66,6 +72,26 @@ public class WeChatClient {
             return (MenuComponent) components.get(key);
         }
         MenuComponent component = new MenuComponent(this);
+        components.put(key, component);
+        return component;
+    }
+
+    public MessageComponent message() {
+        String key = MessageComponent.class.getName();
+        if (components.containsKey(key)) {
+            return (MessageComponent) components.get(key);
+        }
+        MessageComponent component = new MessageComponent(this);
+        components.put(key, component);
+        return component;
+    }
+
+    public UserComponent user() {
+        String key = UserComponent.class.getName();
+        if (components.containsKey(key)) {
+            return (UserComponent) components.get(key);
+        }
+        UserComponent component = new UserComponent(this);
         components.put(key, component);
         return component;
     }

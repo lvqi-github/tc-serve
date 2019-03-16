@@ -25,12 +25,12 @@ public class BaseComponent extends AbstractComponent {
     public BaseAccessToken getBaseAccessToken() {
 
         //构建请求参数
-        Map<String, Object> parms = new HashMap<>();
-        parms.put("grant_type", "client_credential");
-        parms.put("appid", weChatClient.getAppId());
-        parms.put("secret", weChatClient.getAppSecret());
+        Map<String, Object> params = new HashMap<>();
+        params.put("grant_type", "client_credential");
+        params.put("appid", weChatClient.getAppId());
+        params.put("secret", weChatClient.getAppSecret());
 
-        JSONObject jsonObject = HttpClientUtil.doGet("https://api.weixin.qq.com/cgi-bin/token", parms);
+        JSONObject jsonObject = HttpClientUtil.doGet("https://api.weixin.qq.com/cgi-bin/token", params);
 
         Object errCode = jsonObject.get("errcode");
         if (errCode != null) {

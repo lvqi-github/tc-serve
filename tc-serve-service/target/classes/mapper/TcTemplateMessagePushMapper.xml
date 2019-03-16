@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tcxx.serve.service.mapper.TcTemplateMessagePushMapper">
+
+    <resultMap id="BaseResultMap" type="com.tcxx.serve.service.entity.TcTemplateMessagePush">
+        <result column="push_id" property="pushId" />
+        <result column="push_type" property="pushType" />
+        <result column="business_id" property="businessId" />
+        <result column="user_id" property="userId" />
+        <result column="open_id" property="openId" />
+        <result column="template_id" property="templateId" />
+        <result column="data_content" property="dataContent" />
+        <result column="push_status" property="pushStatus" />
+        <result column="failed_retry_number" property="failedRetryNumber" />
+        <result column="uuid" property="uuid" />
+        <result column="msg_id" property="msgId" />
+        <result column="modified" property="modified" />
+        <result column="created" property="created" />
+    </resultMap>
+
+    <sql id="TbName">
+        tc_template_message_push
+    </sql>
+
+    <!-- 用于select查询、insert的公用抽取的列 -->
+    <sql id="TbColumns">
+		push_id,
+		push_type,
+		business_id,
+		user_id,
+		open_id,
+		template_id,
+		data_content,
+		push_status,
+		failed_retry_number,
+		uuid,
+		msg_id,
+		modified,
+		created
+	</sql>
+
+    <insert id="insert" parameterType="com.tcxx.serve.service.entity.TcTemplateMessagePush">
+        INSERT INTO <include refid="TbName"/> (
+        <include refid="TbColumns"/>
+        )  VALUES (
+        #{pushId},
+        #{pushType},
+        #{businessId},
+        #{userId},
+        #{openId},
+        #{templateId},
+        #{dataContent},
+        #{pushStatus},
+        #{failedRetryNumber},
+        #{uuid},
+        #{msgId},
+        NOW(),
+        NOW()
+        )
+    </insert>
+
+    <select id="getByUuid" resultMap="BaseResultMap" parameterType="com.tcxx.serve.service.query.TcTemplateMessagePushQuery" >
+        SELECT <include refid="TbColumns"/>
+        FROM <include refid="TbName"/>
+        WHERE
+        uuid = #{uuid}
+    </select>
+
+    <update id="updatePushStatusSuccess" parameterType="com.tcxx.serve.service.entity.TcPublicAccountFocus">
+        UPDATE <include refid="TbName"/>
+        SET
+        msg_id = #{msgId},
+        push_status = 3,
+        modified = now()
+        WHERE
+        push_id = #{pushId}
+        AND push_status = 1
+    </update>
+
+    <update id="updatePushStatusFailed" parameterType="com.tcxx.serve.service.entity.TcPublicAccountFocus">
+        UPDATE <include refid="TbName"/>
+        SET
+        push_status = 4,
+        modified = now()
+        WHERE
+        push_id = #{pushId}
+        AND push_status = 1
+    </update>
+
+    <delete id="deleteByPushId" parameterType="com.tcxx.serve.service.entity.TcPublicAccountFocus">
+        DELETE FROM <include refid="TbName"/>
+        WHERE
+        push_id = #{pushId}
+    </delete>
+
+    <select id="listNotPushTemplateMessage" parameterType="com.tcxx.serve.service.query.TcTemplateMessagePushQuery" resultMap="BaseResultMap">
+        SELECT <include refid="TbColumns"/>
+        FROM <include refid="TbName"/>
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            AND created &gt;= DATE_SUB(NOW(), INTERVAL 12 HOUR)
+            AND push_status = 1
+        </trim>
+        ORDER BY created ASC
+        LIMIT #{pagingPageSize}
+    </select>
+
+    <select id="listClearTemplateMessage" parameterType="com.tcxx.serve.service.query.TcTemplateMessagePushQuery" resultMap="BaseResultMap">
+        SELECT <include refid="TbColumns"/>
+        FROM <include refid="TbName"/>
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            AND created &lt;= DATE_SUB(NOW(), INTERVAL 5 DAY)
+        </trim>
+        ORDER BY created ASC
+        LIMIT #{pagingPageSize}
+    </select>
+
+    <select id="listByCondition" parameterType="com.tcxx.serve.service.query.TcTemplateMessagePushQuery" resultMap="BaseResultMap">
+        SELECT <include refid="TbColumns"/>
+        FROM <include refid="TbName"/>
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="pushStatus != null"> AND push_status = #{pushStatus}</if>
+        </trim>
+        ORDER BY created DESC
+        LIMIT #{pagingRecordStart}, #{pagingPageSize}
+    </select>
+
+    <select id="countByCondition" resultType="java.lang.Integer" parameterType="com.tcxx.serve.service.query.TcTemplateMessagePushQuery">
+        SELECT
+        COUNT(1)
+        FROM
+        <include refid="TbName"/>
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="pushStatus != null"> AND push_status = #{pushStatus}</if>
+        </trim>
+    </select>
+
+</mapper>

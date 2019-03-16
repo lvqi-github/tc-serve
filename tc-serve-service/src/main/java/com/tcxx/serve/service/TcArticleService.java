@@ -17,4 +17,6 @@ public interface TcArticleService {
 
     Integer countByCondition(TcArticleQuery query);
 
+    boolean generatePushJob(String articleId);
+
 }

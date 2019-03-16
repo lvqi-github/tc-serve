@@ -1,1 +1,0 @@
-package com.tcxx.serve.wechat.model;

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--suppress ALL -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 刷新微信基础accessToken调度任务 1小时一次 -->
+    <bean id="refreshWeChatBaseAccessTokenJobDetail"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="refreshWeChatBaseAccessTokenJob"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <bean id="refreshWeChatBaseAccessTokenJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="refreshWeChatBaseAccessTokenJobDetail"/>
+        <property name="cronExpression" value="0 0 0/1 * * ?"/>
+    </bean>
+    <bean id="refreshWeChatBaseAccessTokenJobScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="refreshWeChatBaseAccessTokenJobTrigger"/>
+            </list>
+        </property>
+        <property name="autoStartup">
+            <value>false</value>
+        </property>
+        <property name="quartzProperties">
+            <props>
+                <prop key="org.quartz.threadPool.threadCount">1</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- 同步微信公众号关注用户数据调度任务 每日5点执行 -->
+    <bean id="syncWeChatPublicAccountFocusOpenIdJobDetail"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="syncWeChatPublicAccountFocusOpenIdJob"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <bean id="syncWeChatPublicAccountFocusOpenIdJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="syncWeChatPublicAccountFocusOpenIdJobDetail"/>
+        <property name="cronExpression" value="0 0 5 * * ? *"/>
+    </bean>
+    <bean id="syncWeChatPublicAccountFocusOpenIdJobScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="syncWeChatPublicAccountFocusOpenIdJobTrigger"/>
+            </list>
+        </property>
+        <property name="autoStartup">
+            <value>false</value>
+        </property>
+        <property name="quartzProperties">
+            <props>
+                <prop key="org.quartz.threadPool.threadCount">1</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- 推送模板消息任务 5分钟执行一次 -->
+    <bean id="pushTemplateMessageJobDetail"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="pushTemplateMessageJob"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <bean id="pushTemplateMessageJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="pushTemplateMessageJobDetail"/>
+        <property name="cronExpression" value="0 0/5 * * * ? *"/>
+    </bean>
+    <bean id="pushTemplateMessageJobScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="pushTemplateMessageJobTrigger"/>
+            </list>
+        </property>
+        <property name="autoStartup">
+            <value>false</value>
+        </property>
+        <property name="quartzProperties">
+            <props>
+                <prop key="org.quartz.threadPool.threadCount">1</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- 清除模板消息数据任务 每日3-7点 1小时执行一次  -->
+    <bean id="clearTemplateMessageDataJobDetail"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="clearTemplateMessageDataJob"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <bean id="clearTemplateMessageDataJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="clearTemplateMessageDataJobDetail"/>
+        <property name="cronExpression" value="0 0 3-7 * * ? "/>
+    </bean>
+    <bean id="clearTemplateMessageDataJobScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="clearTemplateMessageDataJobTrigger"/>
+            </list>
+        </property>
+        <property name="autoStartup">
+            <value>false</value>
+        </property>
+        <property name="quartzProperties">
+            <props>
+                <prop key="org.quartz.threadPool.threadCount">1</prop>
+            </props>
+        </property>
+    </bean>
+
+</beans>

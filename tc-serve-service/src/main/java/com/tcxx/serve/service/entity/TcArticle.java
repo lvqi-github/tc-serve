@@ -59,6 +59,9 @@ public class TcArticle {
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date endTime;
 
+    /** 推送任务状态 1-未生成推送任务 2-已生成推送任务 **/
+    private Integer pushJobStatus;
+
     /** 修改时间 **/
     private Date modified;
 

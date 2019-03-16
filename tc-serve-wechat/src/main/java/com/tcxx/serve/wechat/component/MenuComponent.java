@@ -18,11 +18,10 @@ public class MenuComponent extends AbstractComponent {
      * 创建自定义菜单
      *
      * @param menu 菜单对象
-     * @param baseAccessToken 基础accessToken
      */
-    public void create(Menu menu, String baseAccessToken) {
+    public void create(Menu menu) {
 
-        JSONObject jsonObject = HttpClientUtil.doPost("https://api.weixin.qq.com/cgi-bin/menu/create?access_token=" + baseAccessToken, JSON.toJSON(menu));
+        JSONObject jsonObject = HttpClientUtil.doPost("https://api.weixin.qq.com/cgi-bin/menu/create?access_token=" + weChatClient.getBaseAccessToken(), JSON.toJSON(menu));
 
         Object errCode = jsonObject.get("errcode");
         if (errCode != null && !errCode.toString().equals("0")) {

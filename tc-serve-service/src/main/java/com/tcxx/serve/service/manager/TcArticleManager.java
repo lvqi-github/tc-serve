@@ -11,6 +11,8 @@ public interface TcArticleManager {
 
     boolean update(TcArticle tcArticle);
 
+    boolean updatePushJobStatusGenerated(String articleId);
+
     TcArticle getByArticleId(String articleId);
 
     List<TcArticle> listByCondition(TcArticleQuery query);

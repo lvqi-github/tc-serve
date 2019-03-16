@@ -53,6 +53,12 @@ public class ArticleListResp {
     /** 结束时间 **/
     private Date endTime;
 
+    /** 推送任务状态 1-未生成推送任务 2-已生成推送任务 **/
+    private Integer pushJobStatus;
+
+    /** 推送任务状态 **/
+    private String pushJobStatusName;
+
     /** 修改时间 **/
     private Date modified;
 

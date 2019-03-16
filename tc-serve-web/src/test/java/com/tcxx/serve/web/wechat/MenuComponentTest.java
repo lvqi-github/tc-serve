@@ -3,7 +3,6 @@ package com.tcxx.serve.web.wechat;
 import com.tcxx.serve.web.TcServeWebApplicationTests;
 import com.tcxx.serve.wechat.WeChatClient;
 import com.tcxx.serve.wechat.enumtype.ButtonTypeEnum;
-import com.tcxx.serve.wechat.model.base.BaseAccessToken;
 import com.tcxx.serve.wechat.model.menu.Button;
 import com.tcxx.serve.wechat.model.menu.ClickButton;
 import com.tcxx.serve.wechat.model.menu.Menu;
@@ -18,9 +17,6 @@ public class MenuComponentTest extends TcServeWebApplicationTests {
 
     @Test
     public void testCreateMenu() {
-        BaseAccessToken baseAccessToken = weChatClient.base().getBaseAccessToken();
-        System.out.println(baseAccessToken);
-
         Menu menu = new Menu();
 
         ViewButton viewButton1 = new ViewButton();
@@ -49,7 +45,7 @@ public class MenuComponentTest extends TcServeWebApplicationTests {
 
         menu.setButton(new Button[]{viewButton1, button});
 
-        weChatClient.menu().create(menu, baseAccessToken.getAccessToken());
+        weChatClient.menu().create(menu);
     }
 
 }
