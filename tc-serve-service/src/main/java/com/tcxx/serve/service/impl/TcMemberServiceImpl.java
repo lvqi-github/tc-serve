@@ -16,6 +16,11 @@ public class TcMemberServiceImpl implements TcMemberService {
     private TcMemberManager tcMemberManager;
 
     @Override
+    public TcMember getByUserId(String userId) {
+        return tcMemberManager.getByUserId(userId);
+    }
+
+    @Override
     public List<TcMember> listByCondition(TcMemberQuery query) {
         return tcMemberManager.listByCondition(query);
     }

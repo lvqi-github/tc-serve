@@ -16,10 +16,31 @@ public class TcUserAuthorSubscribeManagerImpl implements TcUserAuthorSubscribeMa
     private TcUserAuthorSubscribeMapper tcUserAuthorSubscribeMapper;
 
     @Override
+    public boolean insert(TcUserAuthorSubscribe tcUserAuthorSubscribe) {
+        return 1 == tcUserAuthorSubscribeMapper.insert(tcUserAuthorSubscribe);
+    }
+
+    @Override
     public void deleteByUserId(String userId) {
         TcUserAuthorSubscribe userAuthorSubscribe = new TcUserAuthorSubscribe();
         userAuthorSubscribe.setUserId(userId);
         tcUserAuthorSubscribeMapper.deleteByUserId(userAuthorSubscribe);
+    }
+
+    @Override
+    public void deleteByUserIdAndAuthorId(String userId, String authorId) {
+        TcUserAuthorSubscribe userAuthorSubscribe = new TcUserAuthorSubscribe();
+        userAuthorSubscribe.setUserId(userId);
+        userAuthorSubscribe.setAuthorId(authorId);
+        tcUserAuthorSubscribeMapper.deleteByUserIdAndAuthorId(userAuthorSubscribe);
+    }
+
+    @Override
+    public TcUserAuthorSubscribe getByUserIdAndAuthorId(String userId, String authorId) {
+        TcUserAuthorSubscribeQuery query = new TcUserAuthorSubscribeQuery();
+        query.setUserId(userId);
+        query.setAuthorId(authorId);
+        return tcUserAuthorSubscribeMapper.getByUserIdAndAuthorId(query);
     }
 
     @Override

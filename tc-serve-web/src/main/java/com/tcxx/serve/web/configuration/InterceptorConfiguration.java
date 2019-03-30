@@ -1,7 +1,9 @@
 package com.tcxx.serve.web.configuration;
 
 import com.tcxx.serve.web.interceptor.AuthenticationInterceptor;
+import com.tcxx.serve.web.interceptor.RequestSignValidateInterceptor;
 import com.tcxx.serve.web.resolver.AdminUserMethodArgumentResolver;
+import com.tcxx.serve.web.resolver.WeChatUserMethodArgumentResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -15,13 +17,19 @@ public class InterceptorConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(authenticationInterceptor())
-                .addPathPatterns("/**");
+        registry.addInterceptor(requestSignValidateInterceptor()).addPathPatterns("/**");
+        registry.addInterceptor(authenticationInterceptor()).addPathPatterns("/**");
     }
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
         resolvers.add(adminUserMethodArgumentResolver());
+        resolvers.add(weChatUserMethodArgumentResolver());
+    }
+
+    @Bean
+    public RequestSignValidateInterceptor requestSignValidateInterceptor() {
+        return new RequestSignValidateInterceptor();
     }
 
     @Bean
@@ -32,6 +40,11 @@ public class InterceptorConfiguration implements WebMvcConfigurer {
     @Bean
     public AdminUserMethodArgumentResolver adminUserMethodArgumentResolver() {
         return new AdminUserMethodArgumentResolver();
+    }
+
+    @Bean
+    public WeChatUserMethodArgumentResolver weChatUserMethodArgumentResolver() {
+        return new WeChatUserMethodArgumentResolver();
     }
 
 }

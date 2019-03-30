@@ -4,7 +4,6 @@ import com.tcxx.serve.core.annotation.AdminLoginTokenValidation;
 import com.tcxx.serve.core.result.Result;
 import com.tcxx.serve.core.result.ResultBuild;
 import com.tcxx.serve.core.result.ResultCodeEnum;
-import com.tcxx.serve.core.utils.DateUtil;
 import com.tcxx.serve.service.TcMemberService;
 import com.tcxx.serve.service.entity.TcMember;
 import com.tcxx.serve.service.enumtype.ValidTypeEnum;
@@ -16,8 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -46,7 +45,7 @@ public class MemberController {
         Integer count = tcMemberService.countByCondition(query);
         List<TcMember> memberList = tcMemberService.listByCondition(query);
 
-        LocalDate today = LocalDate.now();
+        Date currentTime = new Date();
 
         List<MemberListResp> memberListResps = new ArrayList<>();
         memberList.stream().forEach(bean -> {
@@ -54,7 +53,7 @@ public class MemberController {
             resp.setUserId(bean.getUserId());
             resp.setFirstMemberOpenTime(bean.getFirstMemberOpenTime());
             resp.setMemberEndDate(bean.getMemberEndDate());
-            if (today.isAfter(DateUtil.converDateToLocalDate(bean.getMemberEndDate()))){ //现在的日期 在 会员结束日期 之后 代表已失效
+            if (currentTime.after(bean.getMemberEndDate())){ //当前时间 在 会员结束时间 之后 代表已失效
                 resp.setValid(ValidTypeEnum.INVALID.getType());
                 resp.setValidName(ValidTypeEnum.INVALID.getName());
             }else {

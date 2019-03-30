@@ -33,6 +33,13 @@
         user_id = #{userId}
     </delete>
 
+    <delete id="deleteByUserIdAndAuthorId" parameterType="com.tcxx.serve.service.entity.TcUserAuthorSubscribe">
+        DELETE FROM <include refid="TbName"/>
+        WHERE
+        user_id = #{userId}
+        AND author_id = #{authorId}
+    </delete>
+
     <select id="getByUserIdAndAuthorId" resultMap="BaseResultMap" parameterType="com.tcxx.serve.service.query.TcUserAuthorSubscribeQuery" >
         SELECT <include refid="TbColumns"/>
         FROM <include refid="TbName"/>

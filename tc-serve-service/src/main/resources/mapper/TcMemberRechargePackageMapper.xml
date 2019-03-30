@@ -54,10 +54,12 @@
         package_id = #{packageId}
     </select>
 
-    <select id="listAll" resultMap="BaseResultMap">
+    <select id="listEnableAll" resultMap="BaseResultMap">
         SELECT <include refid="TbColumns"/>
         FROM <include refid="TbName"/>
-        ORDER BY days_of_validity ASC
+        WHERE
+        enable_status = 1
+        ORDER BY days_of_validity DESC
     </select>
 
     <select id="listAllPage" parameterType="com.tcxx.serve.service.query.TcMemberRechargePackageQuery" resultMap="BaseResultMap">

@@ -1,5 +1,6 @@
 package com.tcxx.serve.web.controller.admin;
 
+import com.tcxx.serve.core.annotation.PassRequestSignValidation;
 import com.tcxx.serve.core.annotation.PassTokenValidation;
 import com.tcxx.serve.service.handler.DefaultMessageHandler;
 import com.tcxx.serve.wechat.util.WeChatAccessTokenUtil;
@@ -27,6 +28,7 @@ public class WeChatAccessController {
      * @param echostr
      * @return
      */
+    @PassRequestSignValidation
     @PassTokenValidation
     @RequestMapping(method = RequestMethod.GET)
     public String weChatAccessGet(@RequestParam(name = "signature") String signature,
@@ -39,6 +41,7 @@ public class WeChatAccessController {
         return null;
     }
 
+    @PassRequestSignValidation
     @PassTokenValidation
     @RequestMapping(method = RequestMethod.POST)
     public String weChatAccessPost(@RequestBody String requestBody,

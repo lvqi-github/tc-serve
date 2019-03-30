@@ -52,8 +52,8 @@
         FROM <include refid="TbName"/>
         <trim prefix="WHERE" prefixOverrides="AND|OR">
             <if test="userId != null and userId != ''"> AND user_id = #{userId}</if>
-            <if test="valid != null and valid == 1"> AND member_end_date &gt;= DATE_FORMAT(NOW(), '%Y-%m-%d')</if><!-- 有效 -->
-            <if test="valid != null and valid == 2"> AND member_end_date &lt; DATE_FORMAT(NOW(), '%Y-%m-%d')</if><!-- 无效 -->
+            <if test="valid != null and valid == 1"> AND member_end_date &gt;= NOW()</if><!-- 有效 -->
+            <if test="valid != null and valid == 2"> AND member_end_date &lt; NOW()</if><!-- 无效 -->
         </trim>
         ORDER BY created DESC
         LIMIT #{pagingRecordStart}, #{pagingPageSize}
@@ -66,8 +66,8 @@
         <include refid="TbName"/>
         <trim prefix="WHERE" prefixOverrides="AND|OR">
             <if test="userId != null and userId != ''"> AND user_id = #{userId}</if>
-            <if test="valid != null and valid == 1"> AND member_end_date &gt;= DATE_FORMAT(NOW(), '%Y-%m-%d')</if><!-- 有效 -->
-            <if test="valid != null and valid == 2"> AND member_end_date &lt; DATE_FORMAT(NOW(), '%Y-%m-%d')</if><!-- 无效 -->
+            <if test="valid != null and valid == 1"> AND member_end_date &gt;= NOW()</if><!-- 有效 -->
+            <if test="valid != null and valid == 2"> AND member_end_date &lt; NOW()</if><!-- 无效 -->
         </trim>
     </select>
 

@@ -5,6 +5,7 @@ import com.tcxx.serve.core.annotation.AdminLoginTokenValidation;
 import com.tcxx.serve.core.annotation.PassTokenValidation;
 import com.tcxx.serve.core.annotation.WeChatLoginTokenValidation;
 import com.tcxx.serve.core.exception.DataBaseOperateRuntimeException;
+import com.tcxx.serve.core.exception.HttpRequestParamVerifyRuntimeException;
 import com.tcxx.serve.core.exception.JavaWebTokenVerifyRuntimeException;
 import com.tcxx.serve.core.exception.WeChatAuthorizeRuntimeException;
 import com.tcxx.serve.core.jwt.JavaWebTokenUtil;
@@ -60,7 +61,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         String token = request.getHeader("Authorization");
         log.info("jwt token=" + token);
         if (StringUtils.isBlank(token)) {
-            throw new RuntimeException("校验token失败, token为空");
+            throw new HttpRequestParamVerifyRuntimeException(ResultCodeEnum.ERROR4001, "token不能为空");
         }
 
         //检查是否需要微信登陆权限

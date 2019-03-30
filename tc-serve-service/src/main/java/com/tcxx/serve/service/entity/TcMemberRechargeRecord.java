@@ -23,10 +23,10 @@ public class TcMemberRechargeRecord {
     /** 有效期天数 **/
     private Integer daysOfValidity;
 
-    /** 有效开始日期 **/
+    /** 有效开始时间 **/
     private Date validityStartDate;
 
-    /** 有效结束日期 **/
+    /** 有效结束时间 **/
     private Date validityEndDate;
 
     /** 用户id **/

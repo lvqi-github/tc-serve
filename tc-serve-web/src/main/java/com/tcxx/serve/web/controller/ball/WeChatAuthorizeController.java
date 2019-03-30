@@ -1,6 +1,8 @@
 package com.tcxx.serve.web.controller.ball;
 
 import com.tcxx.serve.core.annotation.PassTokenValidation;
+import com.tcxx.serve.core.annotation.WeChatLoginTokenValidation;
+import com.tcxx.serve.core.annotation.WeChatLoginUser;
 import com.tcxx.serve.core.exception.DataBaseOperateRuntimeException;
 import com.tcxx.serve.core.jwt.JavaWebTokenUtil;
 import com.tcxx.serve.core.redis.RedisKeyPrefix;
@@ -10,6 +12,7 @@ import com.tcxx.serve.core.result.ResultBuild;
 import com.tcxx.serve.core.result.ResultCodeEnum;
 import com.tcxx.serve.service.TcUserService;
 import com.tcxx.serve.service.entity.TcUser;
+import com.tcxx.serve.web.domain.ball.WeChatUser;
 import com.tcxx.serve.wechat.WeChatClient;
 import com.tcxx.serve.wechat.model.sns.SnsAccessToken;
 import com.tcxx.serve.wechat.model.sns.SnsUser;
@@ -19,6 +22,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 @Slf4j
@@ -81,6 +86,24 @@ public class WeChatAuthorizeController {
 
         Result<String> result = ResultBuild.wrapSuccess();
         result.setValue(token);
+        return result;
+    }
+
+    @WeChatLoginTokenValidation
+    @RequestMapping("/getUserInfo")
+    public Result<Map<String, Object>> getAdminUserInfo(@WeChatLoginUser WeChatUser weChatUser) {
+        if (Objects.isNull(weChatUser)){
+            return ResultBuild.wrapResult(ResultCodeEnum.ERROR4001, "用户信息不能为空");
+        }
+
+        TcUser tcUser = tcUserService.getByUserId(weChatUser.getUserId());
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("username", tcUser.getNickName());
+        map.put("avatar", tcUser.getHeadImgUrl());
+
+        Result<Map<String, Object>> result = ResultBuild.wrapSuccess();
+        result.setValue(map);
         return result;
     }
 

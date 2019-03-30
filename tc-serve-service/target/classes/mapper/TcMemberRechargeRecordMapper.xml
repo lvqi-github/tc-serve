@@ -77,6 +77,7 @@
         FROM <include refid="TbName"/>
         <trim prefix="WHERE" prefixOverrides="AND|OR">
             <if test="userId != null and userId != ''"> AND user_id = #{userId}</if>
+            <if test="recordValidStatus != null"> AND record_valid_status = #{recordValidStatus}</if>
         </trim>
         ORDER BY created DESC
         LIMIT #{pagingRecordStart}, #{pagingPageSize}
@@ -89,6 +90,7 @@
         <include refid="TbName"/>
         <trim prefix="WHERE" prefixOverrides="AND|OR">
             <if test="userId != null and userId != ''"> AND user_id = #{userId}</if>
+            <if test="recordValidStatus != null"> AND record_valid_status = #{recordValidStatus}</if>
         </trim>
     </select>
 

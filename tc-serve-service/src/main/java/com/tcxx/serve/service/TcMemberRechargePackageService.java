@@ -12,7 +12,7 @@ public interface TcMemberRechargePackageService {
 
     TcMemberRechargePackage getByPackageId(String packageId);
 
-    List<TcMemberRechargePackage> listAll();
+    List<TcMemberRechargePackage> listEnableAll();
 
     List<TcMemberRechargePackage> listAllPage(Integer page, Integer pageSize);
 

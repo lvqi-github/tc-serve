@@ -37,8 +37,8 @@ public class TcMemberRechargePackageManagerImpl implements TcMemberRechargePacka
     }
 
     @Override
-    public List<TcMemberRechargePackage> listAll() {
-        return tcMemberRechargePackageMapper.listAll();
+    public List<TcMemberRechargePackage> listEnableAll() {
+        return tcMemberRechargePackageMapper.listEnableAll();
     }
 
     @Override

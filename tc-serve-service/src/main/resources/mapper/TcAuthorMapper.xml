@@ -51,7 +51,7 @@
     <select id="listAll" resultMap="BaseResultMap">
         SELECT <include refid="TbColumns"/>
         FROM <include refid="TbName"/>
-        ORDER BY created DESC
+        ORDER BY created ASC
     </select>
 
     <select id="listAllPage" parameterType="com.tcxx.serve.service.query.TcAuthorQuery" resultMap="BaseResultMap">

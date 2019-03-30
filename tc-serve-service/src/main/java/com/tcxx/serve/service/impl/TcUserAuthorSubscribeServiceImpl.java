@@ -16,8 +16,28 @@ public class TcUserAuthorSubscribeServiceImpl implements TcUserAuthorSubscribeSe
     private TcUserAuthorSubscribeManager tcUserAuthorSubscribeManager;
 
     @Override
+    public boolean insert(TcUserAuthorSubscribe tcUserAuthorSubscribe) {
+        return tcUserAuthorSubscribeManager.insert(tcUserAuthorSubscribe);
+    }
+
+    @Override
     public void deleteByUserId(String userId) {
         tcUserAuthorSubscribeManager.deleteByUserId(userId);
+    }
+
+    @Override
+    public void deleteByUserIdAndAuthorId(String userId, String authorId) {
+        tcUserAuthorSubscribeManager.deleteByUserIdAndAuthorId(userId, authorId);
+    }
+
+    @Override
+    public TcUserAuthorSubscribe getByUserIdAndAuthorId(String userId, String authorId) {
+        return tcUserAuthorSubscribeManager.getByUserIdAndAuthorId(userId, authorId);
+    }
+
+    @Override
+    public List<TcUserAuthorSubscribe> listAllByCondition(TcUserAuthorSubscribeQuery query) {
+        return tcUserAuthorSubscribeManager.listAllByCondition(query);
     }
 
     @Override

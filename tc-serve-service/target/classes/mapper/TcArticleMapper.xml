@@ -3,25 +3,25 @@
 <mapper namespace="com.tcxx.serve.service.mapper.TcArticleMapper">
 
     <resultMap id="BaseResultMap" type="com.tcxx.serve.service.entity.TcArticle">
-        <result column="article_id" property="articleId" />
-        <result column="article_title" property="articleTitle" />
-        <result column="article_desc" property="articleDesc" />
-        <result column="article_type" property="articleType" />
-        <result column="article_preview_text" property="articlePreviewText" />
-        <result column="article_preview_img" property="articlePreviewImg" />
-        <result column="article_content_text" property="articleContentText" />
-        <result column="article_content_img" property="articleContentImg" />
-        <result column="author_id" property="authorId" />
-        <result column="author_name" property="authorName" />
-        <result column="charge_type" property="chargeType" />
-        <result column="price" property="price" />
-        <result column="release_status" property="releaseStatus" />
-        <result column="article_status" property="articleStatus" />
-        <result column="start_time" property="startTime" />
-        <result column="end_time" property="endTime" />
-        <result column="push_job_status" property="pushJobStatus" />
-        <result column="modified" property="modified" />
-        <result column="created" property="created" />
+        <result column="article_id" property="articleId"/>
+        <result column="article_title" property="articleTitle"/>
+        <result column="article_desc" property="articleDesc"/>
+        <result column="article_type" property="articleType"/>
+        <result column="article_preview_text" property="articlePreviewText"/>
+        <result column="article_preview_img" property="articlePreviewImg"/>
+        <result column="article_content_text" property="articleContentText"/>
+        <result column="article_content_img" property="articleContentImg"/>
+        <result column="author_id" property="authorId"/>
+        <result column="author_name" property="authorName"/>
+        <result column="charge_type" property="chargeType"/>
+        <result column="price" property="price"/>
+        <result column="release_status" property="releaseStatus"/>
+        <result column="article_status" property="articleStatus"/>
+        <result column="start_time" property="startTime"/>
+        <result column="end_time" property="endTime"/>
+        <result column="push_job_status" property="pushJobStatus"/>
+        <result column="modified" property="modified"/>
+        <result column="created" property="created"/>
     </resultMap>
 
     <sql id="TbName">
@@ -35,9 +35,11 @@
 	</sql>
 
     <insert id="insert" parameterType="com.tcxx.serve.service.entity.TcArticle">
-        INSERT INTO <include refid="TbName"/> (
+        INSERT INTO
+        <include refid="TbName"/>
+        (
         <include refid="TbColumns"/>
-        )  VALUES (
+        ) VALUES (
         #{articleId},
         #{articleTitle},
         #{articleDesc},
@@ -61,7 +63,8 @@
     </insert>
 
     <update id="update" parameterType="com.tcxx.serve.service.entity.TcArticle">
-        UPDATE <include refid="TbName"/>
+        UPDATE
+        <include refid="TbName"/>
         SET
         article_title = #{articleTitle},
         article_desc = #{articleDesc},
@@ -84,7 +87,8 @@
     </update>
 
     <update id="updatePushJobStatusGenerated" parameterType="com.tcxx.serve.service.entity.TcArticle">
-        UPDATE <include refid="TbName"/>
+        UPDATE
+        <include refid="TbName"/>
         SET
         push_job_status = 2,
         modified = now()
@@ -93,32 +97,53 @@
         AND push_job_status = 1
     </update>
 
-    <select id="getByArticleId" resultMap="BaseResultMap" parameterType="com.tcxx.serve.service.query.TcArticleQuery" >
-        SELECT <include refid="TbColumns"/>
-        FROM <include refid="TbName"/>
+    <select id="getByArticleId" resultMap="BaseResultMap" parameterType="com.tcxx.serve.service.query.TcArticleQuery">
+        SELECT
+        <include refid="TbColumns"/>
+        FROM
+        <include refid="TbName"/>
         WHERE
         article_id = #{articleId}
     </select>
 
     <select id="listByCondition" parameterType="com.tcxx.serve.service.query.TcArticleQuery" resultMap="BaseResultMap">
-        SELECT <include refid="TbColumns"/>
-        FROM <include refid="TbName"/>
+        SELECT
+        <include refid="TbColumns"/>
+        FROM
+        <include refid="TbName"/>
         <trim prefix="WHERE" prefixOverrides="AND|OR">
-          <if test="createdStart != null and createdStart != ''"> AND created &gt;= #{createdStart}</if>
-          <if test="createdEnd != null and createdEnd != ''"> AND created &lt;= #{createdEnd}</if>
+            <if test="authorId != null and authorId != ''"> AND author_id = #{authorId}</if>
+            <if test="createdStart != null">AND created &gt;= #{createdStart}</if>
+            <if test="createdEnd != null">AND created &lt;= #{createdEnd}</if>
+            <if test="releaseStatus != null">AND release_status = #{releaseStatus}</if>
+            <if test="articleStatusList != null and articleStatusList.size() > 0">
+                AND article_status IN
+                <foreach item="item" index="index" collection="articleStatusList" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
         </trim>
         ORDER BY created DESC
         LIMIT #{pagingRecordStart}, #{pagingPageSize}
     </select>
 
-    <select id="countByCondition" resultType="java.lang.Integer" parameterType="com.tcxx.serve.service.query.TcArticleQuery">
+    <select id="countByCondition" resultType="java.lang.Integer"
+            parameterType="com.tcxx.serve.service.query.TcArticleQuery">
         SELECT
         COUNT(1)
         FROM
         <include refid="TbName"/>
         <trim prefix="WHERE" prefixOverrides="AND|OR">
-          <if test="createdStart != null and createdStart != ''"> AND created &gt;= #{createdStart}</if>
-          <if test="createdEnd != null and createdEnd != ''"> AND created &lt;= #{createdEnd}</if>
+            <if test="authorId != null and authorId != ''"> AND author_id = #{authorId}</if>
+            <if test="createdStart != null">AND created &gt;= #{createdStart}</if>
+            <if test="createdEnd != null">AND created &lt;= #{createdEnd}</if>
+            <if test="releaseStatus != null">AND release_status = #{releaseStatus}</if>
+            <if test="articleStatusList != null and articleStatusList.size() > 0">
+                AND article_status IN
+                <foreach item="item" index="index" collection="articleStatusList" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
         </trim>
     </select>
 

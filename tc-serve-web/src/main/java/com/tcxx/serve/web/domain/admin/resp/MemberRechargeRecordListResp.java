@@ -24,12 +24,12 @@ public class MemberRechargeRecordListResp {
     /** 有效期天数 **/
     private Integer daysOfValidity;
 
-    /** 有效开始日期 **/
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
+    /** 有效开始时间 **/
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm")
     private Date validityStartDate;
 
-    /** 有效结束日期 **/
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
+    /** 有效结束时间 **/
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm")
     private Date validityEndDate;
 
     /** 用户id **/

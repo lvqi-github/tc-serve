@@ -2,6 +2,8 @@ package com.tcxx.serve.service.query;
 
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
 public class TcHitRecordQuery extends Pagination {
 
@@ -13,4 +15,6 @@ public class TcHitRecordQuery extends Pagination {
 
     /** 作者id **/
     private String authorId;
+
+    private Date recordDateStart;
 }

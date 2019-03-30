@@ -1,6 +1,7 @@
 package com.tcxx.serve.web.controller.admin;
 
 import com.tcxx.serve.core.annotation.AdminLoginTokenValidation;
+import com.tcxx.serve.core.annotation.PassRequestSignValidation;
 import com.tcxx.serve.core.exception.CustomRuntimeException;
 import com.tcxx.serve.core.qiniu.QiNiuProperties;
 import com.tcxx.serve.core.qiniu.QiNiuService;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.*;
@@ -31,14 +33,18 @@ public class FileUploadController {
     @Autowired
     private QiNiuProperties qiNiuProperties;
 
+    @PassRequestSignValidation
     @AdminLoginTokenValidation
     @RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
-    public Result<Map<String, String>> fileUpload(@RequestParam("file") MultipartFile multiple) {
+    public Result<Map<String, String>> fileUpload(@RequestParam("file") MultipartFile multiple, String fileType) {
         if (multiple.isEmpty()){
             return ResultBuild.wrapResult(ResultCodeEnum.ERROR4001, "文件不能为空");
         }
+        if (StringUtils.isBlank(fileType)){
+            return ResultBuild.wrapResult(ResultCodeEnum.ERROR4001, "fileType不能为空");
+        }
         String fileName = multiple.getOriginalFilename();
-        String qiNiuFileName = UUID.randomUUID().toString().replaceAll("-", "") + fileName.substring(fileName.lastIndexOf("."));
+        String qiNiuFileName = fileType + "/" + UUID.randomUUID().toString().replaceAll("-", "") + fileName.substring(fileName.lastIndexOf("."));
 
         try {
             FileInputStream inputStream = (FileInputStream) multiple.getInputStream();
@@ -46,7 +52,7 @@ public class FileUploadController {
 
             Map<String, String> map = new HashMap<>();
             map.put("name", filePath);
-            map.put("url", String.format("http://%s/%s", qiNiuProperties.getCdnPrefixOfBucket(), filePath));
+            map.put("url", String.format("//%s/%s", qiNiuProperties.getCdnPrefixOfBucket(), filePath));
 
             Result<Map<String, String>> result = ResultBuild.wrapSuccess();
             result.setValue(map);

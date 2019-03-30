@@ -72,7 +72,8 @@
         SELECT <include refid="TbColumns"/>
         FROM <include refid="TbName"/>
         <trim prefix="WHERE" prefixOverrides="AND|OR">
-            <if test="recordType != null and recordType != ''"> AND record_type = #{recordType}</if>
+            <if test="recordDateStart != null">AND record_date &gt;= DATE(#{recordDateStart})</if>
+            <if test="recordType != null"> AND record_type = #{recordType}</if>
             <if test="authorId != null and authorId != ''"> AND author_id = #{authorId}</if>
         </trim>
         ORDER BY record_date DESC
@@ -85,7 +86,8 @@
         FROM
         <include refid="TbName"/>
         <trim prefix="WHERE" prefixOverrides="AND|OR">
-            <if test="recordType != null and recordType != ''"> AND record_type = #{recordType}</if>
+            <if test="recordDateStart != null">AND record_date &gt;= DATE(#{recordDateStart})</if>
+            <if test="recordType != null"> AND record_type = #{recordType}</if>
             <if test="authorId != null and authorId != ''"> AND author_id = #{authorId}</if>
         </trim>
     </select>

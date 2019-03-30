@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface TcMemberService {
 
+    TcMember getByUserId(String userId);
+
     List<TcMember> listByCondition(TcMemberQuery query);
 
     Integer countByCondition(TcMemberQuery query);

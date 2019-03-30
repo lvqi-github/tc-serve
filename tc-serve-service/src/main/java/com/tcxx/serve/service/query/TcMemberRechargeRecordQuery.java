@@ -11,4 +11,7 @@ public class TcMemberRechargeRecordQuery extends Pagination {
     /** 用户id **/
     private String userId;
 
+    /** 记录有效状态 1-有效 2-未生效 **/
+    private Integer recordValidStatus;
+
 }

@@ -25,6 +25,7 @@ public class JavaWebTokenUtil {
      * tc-ball token过期时间31天 大于微信授权登陆的refreshToken
      **/
     public static final int TC_BALL_TOKEN_EXPIRE_HOURS = 31 * 24;
+//    public static final int TC_BALL_TOKEN_EXPIRE_HOURS = 1;
 
     //---------------------------------------------------------------------------------------------------
 
@@ -47,7 +48,6 @@ public class JavaWebTokenUtil {
                 .withIssuer(issuer) // 签发者：签名由谁生成
                 .withAudience(userId) // 受众：谁接受的签名
                 .withExpiresAt(DateUtils.addHours(new Date(), expire)); // 签名过期时间
-//                .withExpiresAt(DateUtils.addMinutes(new Date(), 5)); // 测试使用5分钟
         return builder.sign(algorithm);
     }
 

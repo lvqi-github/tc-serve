@@ -55,7 +55,7 @@
                 <resources>
                     <resource>
                         <!--配置文件路径  -->
-                        <directory>src/resources</directory> <!--这里对应项目存放配置文件的目录-->
+                        <directory>src/main/resources</directory> <!--这里对应项目存放配置文件的目录-->
                         <!--开启filtering功能  -->
                         <filtering>true</filtering>
                     </resource>
@@ -67,12 +67,28 @@
             </properties>
         </profile>
         <profile>
+            <id>test</id>
+            <build>
+                <resources>
+                    <resource>
+                        <!--配置文件路径  -->
+                        <directory>src/main/resources</directory> <!--这里对应项目存放配置文件的目录-->
+                        <!--开启filtering功能  -->
+                        <filtering>true</filtering>
+                    </resource>
+                </resources>
+            </build>
+            <properties>
+                <activatedProperties>test</activatedProperties>
+            </properties>
+        </profile>
+        <profile>
             <id>prod</id>
             <build>
                 <resources>
                     <resource>
                         <!--配置文件路径  -->
-                        <directory>src/resources</directory> <!--这里对应项目存放配置文件的目录-->
+                        <directory>src/main/resources</directory> <!--这里对应项目存放配置文件的目录-->
                         <!--开启filtering功能  -->
                         <filtering>true</filtering>
                     </resource>

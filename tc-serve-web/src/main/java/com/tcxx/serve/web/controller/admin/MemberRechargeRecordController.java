@@ -42,10 +42,10 @@ public class MemberRechargeRecordController {
         TcMemberRechargeRecordQuery query = buildGetMemberRechargeRecordListQuery(reqQuery, page);
 
         Integer count = tcMemberRechargeRecordService.countByCondition(query);
-        List<TcMemberRechargeRecord> orderList = tcMemberRechargeRecordService.listByCondition(query);
+        List<TcMemberRechargeRecord> memberRechargeRecordList = tcMemberRechargeRecordService.listByCondition(query);
 
         List<MemberRechargeRecordListResp> memberRechargeRecordListResps = new ArrayList<>();
-        orderList.stream().forEach(bean -> {
+        memberRechargeRecordList.stream().forEach(bean -> {
             MemberRechargeRecordListResp resp = new MemberRechargeRecordListResp();
             resp.setRechargeRecordNo(bean.getRechargeRecordNo());
             resp.setRechargePackageId(bean.getRechargePackageId());

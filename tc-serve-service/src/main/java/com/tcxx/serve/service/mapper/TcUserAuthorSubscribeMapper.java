@@ -11,6 +11,8 @@ public interface TcUserAuthorSubscribeMapper {
 
     int deleteByUserId(TcUserAuthorSubscribe tcUserAuthorSubscribe);
 
+    int deleteByUserIdAndAuthorId(TcUserAuthorSubscribe tcUserAuthorSubscribe);
+
     TcUserAuthorSubscribe getByUserIdAndAuthorId(TcUserAuthorSubscribeQuery query);
 
     List<TcUserAuthorSubscribe> listAllByCondition(TcUserAuthorSubscribeQuery query);

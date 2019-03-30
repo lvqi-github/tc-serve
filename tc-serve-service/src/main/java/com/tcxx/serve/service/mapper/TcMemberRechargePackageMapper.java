@@ -13,7 +13,7 @@ public interface TcMemberRechargePackageMapper {
 
     TcMemberRechargePackage getByPackageId(TcMemberRechargePackageQuery query);
 
-    List<TcMemberRechargePackage> listAll();
+    List<TcMemberRechargePackage> listEnableAll();
 
     List<TcMemberRechargePackage> listAllPage(TcMemberRechargePackageQuery query);
 
