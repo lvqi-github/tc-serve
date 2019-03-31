@@ -1,6 +1,5 @@
 D:\WorkSpace\tc-serve\tc-serve-core\src\main\java\com\tcxx\serve\core\qiniu\QiNiuService.java
 D:\WorkSpace\tc-serve\tc-serve-core\src\main\java\com\tcxx\serve\core\annotation\WeChatLoginUser.java
-D:\WorkSpace\tc-serve\tc-serve-core\src\main\java\com\tcxx\serve\core\utils\DateUtil.java
 D:\WorkSpace\tc-serve\tc-serve-core\src\main\java\com\tcxx\serve\core\exception\CustomRuntimeException.java
 D:\WorkSpace\tc-serve\tc-serve-core\src\main\java\com\tcxx\serve\core\exception\QiNiuRuntimeException.java
 D:\WorkSpace\tc-serve\tc-serve-core\src\main\java\com\tcxx\serve\core\exception\HttpRequestRuntimeException.java
@@ -13,13 +12,17 @@ D:\WorkSpace\tc-serve\tc-serve-core\src\main\java\com\tcxx\serve\core\annotation
 D:\WorkSpace\tc-serve\tc-serve-core\src\main\java\com\tcxx\serve\core\utils\BusinessUuidGenerateUtil.java
 D:\WorkSpace\tc-serve\tc-serve-core\src\main\java\com\tcxx\serve\core\redis\RedisUtil.java
 D:\WorkSpace\tc-serve\tc-serve-core\src\main\java\com\tcxx\serve\core\exception\WeChatAuthorizeRuntimeException.java
+D:\WorkSpace\tc-serve\tc-serve-core\src\main\java\com\tcxx\serve\core\exception\HttpRequestParamVerifyRuntimeException.java
 D:\WorkSpace\tc-serve\tc-serve-core\src\main\java\com\tcxx\serve\core\exception\JavaWebTokenVerifyRuntimeException.java
 D:\WorkSpace\tc-serve\tc-serve-core\src\main\java\com\tcxx\serve\core\http\HttpClientUtil.java
 D:\WorkSpace\tc-serve\tc-serve-core\src\main\java\com\tcxx\serve\core\annotation\AdminLoginUser.java
 D:\WorkSpace\tc-serve\tc-serve-core\src\main\java\com\tcxx\serve\core\redis\RedisKeyPrefix.java
 D:\WorkSpace\tc-serve\tc-serve-core\src\main\java\com\tcxx\serve\core\annotation\PassTokenValidation.java
+D:\WorkSpace\tc-serve\tc-serve-core\src\main\java\com\tcxx\serve\core\annotation\PassRequestSignValidation.java
+D:\WorkSpace\tc-serve\tc-serve-core\src\main\java\com\tcxx\serve\core\utils\SpringContextHelper.java
 D:\WorkSpace\tc-serve\tc-serve-core\src\main\java\com\tcxx\serve\core\exception\DataBaseOperateRuntimeException.java
 D:\WorkSpace\tc-serve\tc-serve-core\src\main\java\com\tcxx\serve\core\exception\WeChatInvokeRuntimeException.java
+D:\WorkSpace\tc-serve\tc-serve-core\src\main\java\com\tcxx\serve\core\enumtype\AppEnum.java
 D:\WorkSpace\tc-serve\tc-serve-core\src\main\java\com\tcxx\serve\core\qiniu\QiNiuProperties.java
 D:\WorkSpace\tc-serve\tc-serve-core\src\main\java\com\tcxx\serve\core\result\ResultBuild.java
 D:\WorkSpace\tc-serve\tc-serve-core\src\main\java\com\tcxx\serve\core\result\ResultCodeEnum.java

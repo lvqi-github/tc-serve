@@ -1,0 +1,10 @@
+D:\WorkSpace\tc-serve\tc-serve-web\src\test\java\com\tcxx\serve\web\TcServeWebApplicationTests.java
+D:\WorkSpace\tc-serve\tc-serve-web\src\test\java\com\tcxx\serve\web\service\handler\DefaultMessageHandlerTest.java
+D:\WorkSpace\tc-serve\tc-serve-web\src\test\java\com\tcxx\serve\web\utils\QiNiuServiceTest.java
+D:\WorkSpace\tc-serve\tc-serve-web\src\test\java\com\tcxx\serve\web\utils\RedisUtilTest.java
+D:\WorkSpace\tc-serve\tc-serve-web\src\test\java\com\tcxx\serve\web\wechat\UserComponentTest.java
+D:\WorkSpace\tc-serve\tc-serve-web\src\test\java\com\tcxx\serve\web\uid\CachedUidGeneratorTest.java
+D:\WorkSpace\tc-serve\tc-serve-web\src\test\java\com\tcxx\serve\web\wechat\MessageComponentTest.java
+D:\WorkSpace\tc-serve\tc-serve-web\src\test\java\com\tcxx\serve\web\service\TcUserServiceTest.java
+D:\WorkSpace\tc-serve\tc-serve-web\src\test\java\com\tcxx\serve\web\wechat\SnsComponentTest.java
+D:\WorkSpace\tc-serve\tc-serve-web\src\test\java\com\tcxx\serve\web\wechat\MenuComponentTest.java

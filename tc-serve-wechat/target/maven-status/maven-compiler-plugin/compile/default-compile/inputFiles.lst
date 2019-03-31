@@ -1,8 +1,10 @@
 D:\WorkSpace\tc-serve\tc-serve-wechat\src\main\java\com\tcxx\serve\wechat\component\MessageComponent.java
 D:\WorkSpace\tc-serve\tc-serve-wechat\src\main\java\com\tcxx\serve\wechat\WeChatConfiguration.java
+D:\WorkSpace\tc-serve\tc-serve-wechat\src\main\java\com\tcxx\serve\wechat\component\UserComponent.java
 D:\WorkSpace\tc-serve\tc-serve-wechat\src\main\java\com\tcxx\serve\wechat\model\menu\ClickButton.java
 D:\WorkSpace\tc-serve\tc-serve-wechat\src\main\java\com\tcxx\serve\wechat\model\message\event\SubscribeEventMessage.java
 D:\WorkSpace\tc-serve\tc-serve-wechat\src\main\java\com\tcxx\serve\wechat\model\message\InputPublicMessage.java
+D:\WorkSpace\tc-serve\tc-serve-wechat\src\main\java\com\tcxx\serve\wechat\model\user\OpenIdData.java
 D:\WorkSpace\tc-serve\tc-serve-wechat\src\main\java\com\tcxx\serve\wechat\enumtype\MsgTypeEnum.java
 D:\WorkSpace\tc-serve\tc-serve-wechat\src\main\java\com\tcxx\serve\wechat\component\BaseComponent.java
 D:\WorkSpace\tc-serve\tc-serve-wechat\src\main\java\com\tcxx\serve\wechat\model\base\BaseAccessToken.java
@@ -13,6 +15,7 @@ D:\WorkSpace\tc-serve\tc-serve-wechat\src\main\java\com\tcxx\serve\wechat\compon
 D:\WorkSpace\tc-serve\tc-serve-wechat\src\main\java\com\tcxx\serve\wechat\model\message\normal\TextMessage.java
 D:\WorkSpace\tc-serve\tc-serve-wechat\src\main\java\com\tcxx\serve\wechat\model\message\template\MiniProgram.java
 D:\WorkSpace\tc-serve\tc-serve-wechat\src\main\java\com\tcxx\serve\wechat\model\message\template\TemplateData.java
+D:\WorkSpace\tc-serve\tc-serve-wechat\src\main\java\com\tcxx\serve\wechat\model\user\Followers.java
 D:\WorkSpace\tc-serve\tc-serve-wechat\src\main\java\com\tcxx\serve\wechat\component\AbstractComponent.java
 D:\WorkSpace\tc-serve\tc-serve-wechat\src\main\java\com\tcxx\serve\wechat\model\sns\SnsAccessToken.java
 D:\WorkSpace\tc-serve\tc-serve-wechat\src\main\java\com\tcxx\serve\wechat\model\menu\Menu.java

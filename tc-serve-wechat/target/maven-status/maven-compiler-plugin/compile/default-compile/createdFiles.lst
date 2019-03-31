@@ -3,6 +3,7 @@ com\tcxx\serve\wechat\model\message\output\TextOutputMessage.class
 com\tcxx\serve\wechat\WeChatErrorCode.class
 com\tcxx\serve\wechat\model\message\event\UnSubscribeEventMessage.class
 com\tcxx\serve\wechat\component\MessageComponent.class
+com\tcxx\serve\wechat\component\UserComponent.class
 com\tcxx\serve\wechat\model\sns\SnsAccessToken.class
 com\tcxx\serve\wechat\model\menu\ViewButton.class
 com\tcxx\serve\wechat\model\message\template\TemplateMessage.class
@@ -25,7 +26,9 @@ com\tcxx\serve\wechat\model\menu\Button.class
 com\tcxx\serve\wechat\model\message\template\TemplateData.class
 com\tcxx\serve\wechat\WeChatClient.class
 com\tcxx\serve\wechat\model\base\BaseAccessToken.class
+com\tcxx\serve\wechat\model\user\Followers.class
 com\tcxx\serve\wechat\model\message\normal\TextMessage.class
 com\tcxx\serve\wechat\enumtype\EventTypeEnum.class
 com\tcxx\serve\wechat\model\message\template\MiniProgram.class
 com\tcxx\serve\wechat\component\BaseComponent.class
+com\tcxx\serve\wechat\model\user\OpenIdData.class
