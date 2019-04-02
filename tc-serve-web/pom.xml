@@ -32,6 +32,7 @@
     </dependencies>
 
     <build>
+        <finalName>tc-serve</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

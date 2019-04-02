@@ -132,24 +132,24 @@ public class TcArticleServiceImpl implements TcArticleService {
         Map<String, TemplateData> data = new HashMap<>();
 
         TemplateData firstData = new TemplateData();
-        firstData.setValue(String.format("您好，您关注的作者「%s」发布了新的文章。", tcArticle.getAuthorName()));
+        firstData.setValue("您好，您关注的作者发布了新的文章。");
         firstData.setColor("#FFA500");
         data.put("first", firstData);
 
         TemplateData titleData = new TemplateData();
         titleData.setValue(tcArticle.getArticleTitle());
         titleData.setColor("#FF0000");
-        data.put("title", titleData);
+        data.put("keyword1", titleData);
+
+        TemplateData authorData = new TemplateData();
+        authorData.setValue(tcArticle.getAuthorName());
+        authorData.setColor("#FF0000");
+        data.put("keyword2", authorData);
 
         TemplateData releaseTimeData = new TemplateData();
-        releaseTimeData.setValue(DateFormatUtils.format(tcArticle.getCreated(), "yyyy-MM-dd HH:mm:ss"));
-        releaseTimeData.setColor("#0000FF");
-        data.put("releaseTime", releaseTimeData);
-
-        TemplateData remarkData = new TemplateData();
-        remarkData.setValue("点击查看详情");
-        remarkData.setColor("#0000FF");
-        data.put("remark", remarkData);
+        releaseTimeData.setValue(String.format("发布时间：%s", DateFormatUtils.format(tcArticle.getCreated(), "yyyy-MM-dd HH:mm:ss")));
+        releaseTimeData.setColor("#000000");
+        data.put("remark", releaseTimeData);
 
         templateMessage.setData(data);
         return JSON.toJSONString(templateMessage);

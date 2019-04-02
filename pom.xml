@@ -172,7 +172,7 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <configuration>
-                        <executable>true</executable>
+                        <executable>true</executable><!-- 用于linux服务注册 -->
                     </configuration>
                     <executions>
                         <execution>

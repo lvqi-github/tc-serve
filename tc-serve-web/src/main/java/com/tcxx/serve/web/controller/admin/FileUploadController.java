@@ -10,6 +10,7 @@ import com.tcxx.serve.core.result.ResultBuild;
 import com.tcxx.serve.core.result.ResultCodeEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -44,7 +45,11 @@ public class FileUploadController {
             return ResultBuild.wrapResult(ResultCodeEnum.ERROR4001, "fileType不能为空");
         }
         String fileName = multiple.getOriginalFilename();
-        String qiNiuFileName = fileType + "/" + UUID.randomUUID().toString().replaceAll("-", "") + fileName.substring(fileName.lastIndexOf("."));
+        String qiNiuFileName = String.format("%s/%s_%s%s",
+                fileType,
+                DateFormatUtils.format(new Date(), "yyyy-MM-dd"),
+                UUID.randomUUID().toString().replaceAll("-", ""),
+                fileName.substring(fileName.lastIndexOf(".")));
 
         try {
             FileInputStream inputStream = (FileInputStream) multiple.getInputStream();

@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum TemplateMessagePushTypeEnum {
 
-    ARTICLE_SUBSCRIBE_PUSH(1, "文章订阅推送", "SAowgybTTTarsqWlwSp1v3FjfxMC24C8h4f0TPA2PCM", "https://www.baidu.com?articleId=");
+    ARTICLE_SUBSCRIBE_PUSH(1, "文章订阅推送", "hk5dZJ0y3aSXhxGYj2zMqT8iwHlBBhhC0l11BqjKzlc", "https://tqh.grtcxx.com/#/articleDetail?articleId=");
 
     /** 类型 */
     private int type;
