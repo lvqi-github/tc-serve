@@ -6,12 +6,17 @@ import com.tcxx.serve.service.TcUserAuthorSubscribeService;
 import com.tcxx.serve.service.TcUserService;
 import com.tcxx.serve.service.entity.TcPublicAccountFocus;
 import com.tcxx.serve.service.entity.TcUser;
+import com.tcxx.serve.wechat.enumtype.ClickEventKeyEnum;
+import com.tcxx.serve.wechat.enumtype.MsgTypeEnum;
+import com.tcxx.serve.wechat.model.message.event.ClickEventMessage;
 import com.tcxx.serve.wechat.model.message.event.SubscribeEventMessage;
 import com.tcxx.serve.wechat.model.message.event.UnSubscribeEventMessage;
+import com.tcxx.serve.wechat.model.message.output.TextOutputMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.Objects;
 
 @Slf4j
@@ -28,7 +33,7 @@ public class EventMessageHandler {
     private TcUserService tcUserService;
 
     public String handlerSubscribeEvent(SubscribeEventMessage msg){
-        // 关注事件 保存至公众号关注表 不关注是否保存成功 有定时任务每天拉取全量关注用户
+        // 关注事件 保存至公众号关注表 不关心是否保存成功 有定时任务每天拉取全量关注用户
         try {
             String uuid = BusinessUuidGenerateUtil.getTcPublicAccountFocusUuid(msg.getToUserName(), msg.getFromUserName());
             TcPublicAccountFocus publicAccountFocus = tcPublicAccountFocusService.getByUuid(uuid);
@@ -43,7 +48,20 @@ public class EventMessageHandler {
             log.error("EventMessageHandler#handlerSubscribeEvent error", e);
         }
 
-        return "success";
+        TextOutputMessage textOutputMessage = new TextOutputMessage();
+        textOutputMessage.setToUserName(msg.getFromUserName());
+        textOutputMessage.setFromUserName(msg.getToUserName());
+        textOutputMessage.setCreateTime(new Date().getTime());
+        textOutputMessage.setMsgType(MsgTypeEnum.TEXT.getType());
+
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("您好，欢迎关注推球汇！").append("\n");
+        buffer.append("本公众号提供体育赛事资讯，赛事解读，详情点击首页进入。").append("\n\n");
+        buffer.append("客服微信：tcxx_kf").append("\n\n");
+        buffer.append("如有系统使用方面的疑问，可添加客服微信进行相关咨询，我们将竭诚为您服务。");
+
+        textOutputMessage.setContent(buffer.toString());
+        return textOutputMessage.toXML();
     }
 
     public String handlerUnSubscribeEvent(UnSubscribeEventMessage msg){
@@ -63,6 +81,31 @@ public class EventMessageHandler {
             }
         } catch (Exception e) {
             log.error("EventMessageHandler#handlerUnSubscribeEvent error", e);
+        }
+        return "success";
+    }
+
+    public String handlerClickEvent(ClickEventMessage msg){
+        //点击菜单拉取消息时的事件
+        try {
+            if (ClickEventKeyEnum.CONTACT_CUSTOMER_SERVICE.getKey().equals(msg.getEventKey())) {
+                // 点击联系客服菜单
+                TextOutputMessage textOutputMessage = new TextOutputMessage();
+                textOutputMessage.setToUserName(msg.getFromUserName());
+                textOutputMessage.setFromUserName(msg.getToUserName());
+                textOutputMessage.setCreateTime(new Date().getTime());
+                textOutputMessage.setMsgType(MsgTypeEnum.TEXT.getType());
+
+                StringBuffer buffer = new StringBuffer();
+                buffer.append("尊敬的用户，您好").append("\n\n");
+                buffer.append("客服微信：tcxx_kf").append("\n\n");
+                buffer.append("如有系统使用方面的疑问，可添加客服微信进行相关咨询，我们将竭诚为您服务。");
+
+                textOutputMessage.setContent(buffer.toString());
+                return textOutputMessage.toXML();
+            }
+        } catch (Exception e) {
+            log.error("EventMessageHandler#handlerClickEvent error", e);
         }
         return "success";
     }

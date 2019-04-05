@@ -127,7 +127,7 @@ public class IndexController {
      * @return
      */
     private boolean viewPermission(String userId, TcArticle tcArticle) {
-        if (tcArticle.getChargeType().equals(ArticleChargeTypeEnum.PUBLIC)){ //文章公开
+        if (tcArticle.getChargeType().equals(ArticleChargeTypeEnum.PUBLIC.getType())){ //文章公开
             return true;
         }else {
             //判断会员有效

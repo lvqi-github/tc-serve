@@ -26,4 +26,11 @@ public abstract class OutputBaseMessage {
      */
     @XStreamAlias("MsgType")
     private String msgType;
+
+    /**
+     * 将对象转换为xml字符串
+     *
+     * @return 对象xml字符串
+     */
+    public abstract String toXML();
 }

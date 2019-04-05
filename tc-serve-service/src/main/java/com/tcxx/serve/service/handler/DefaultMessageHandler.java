@@ -35,6 +35,9 @@ public class DefaultMessageHandler {
             }else if (event.equals(EventTypeEnum.UNSUBSCRIBE.getType())){
                 //取消关注事件
                 return eventMessageHandler.handlerUnSubscribeEvent(inputPublicMessage.toUnSubscribeEventMessage());
+            }else if (event.equals(EventTypeEnum.CLICK.getType())){
+                //点击菜单拉取消息时的事件
+                return eventMessageHandler.handlerClickEvent(inputPublicMessage.toClickEventMessage());
             }
         }
 

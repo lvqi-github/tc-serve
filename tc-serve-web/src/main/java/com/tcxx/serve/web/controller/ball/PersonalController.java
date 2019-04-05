@@ -5,6 +5,7 @@ import com.tcxx.serve.core.annotation.WeChatLoginUser;
 import com.tcxx.serve.core.result.Result;
 import com.tcxx.serve.core.result.ResultBuild;
 import com.tcxx.serve.core.result.ResultCodeEnum;
+import com.tcxx.serve.core.utils.BusinessUuidGenerateUtil;
 import com.tcxx.serve.service.*;
 import com.tcxx.serve.service.entity.*;
 import com.tcxx.serve.service.enumtype.AuthorPlatformSourceEnum;
@@ -18,6 +19,7 @@ import com.tcxx.serve.web.domain.ball.resp.BallArticlePurchaseRecordListResp;
 import com.tcxx.serve.web.domain.ball.resp.BallMemberInfoResp;
 import com.tcxx.serve.web.domain.ball.resp.BallMemberRechargePackageListResp;
 import com.tcxx.serve.web.domain.ball.resp.BallMemberRechargeRecordListResp;
+import com.tcxx.serve.wechat.WeChatConfiguration;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,10 +35,19 @@ import java.util.stream.Collectors;
 public class PersonalController {
 
     @Autowired
+    private TcUserService tcUserService;
+
+    @Autowired
     private TcAuthorService tcAuthorService;
 
     @Autowired
     private TcUserAuthorSubscribeService tcUserAuthorSubscribeService;
+
+    @Autowired
+    private TcPublicAccountFocusService tcPublicAccountFocusService;
+
+    @Autowired
+    private WeChatConfiguration weChatConfiguration;
 
     @Autowired
     private TcMemberService tcMemberService;
@@ -208,6 +219,22 @@ public class PersonalController {
         }
         if (StringUtils.isBlank(authorId)){
             return ResultBuild.wrapResult(ResultCodeEnum.ERROR4001, "authorId不能为空");
+        }
+
+        //获取用户信息
+        TcUser tcUser = tcUserService.getByUserId(weChatUser.getUserId());
+        if (Objects.isNull(tcUser)){
+            return ResultBuild.wrapResult(ResultCodeEnum.ERROR4001, "非法用户");
+        }
+
+        // 校验是否关注公众号
+        TcPublicAccountFocus publicAccountFocus = tcPublicAccountFocusService.
+                getByUuid(BusinessUuidGenerateUtil.getTcPublicAccountFocusUuid(weChatConfiguration.getPublicAccountWechatId(), tcUser.getOpenId()));
+        if (Objects.isNull(publicAccountFocus)) {
+            Result<Boolean> result = ResultBuild.wrapSuccess();
+            result.setValue(false);
+            result.setResultMsg("请先关注公众号");
+            return result;
         }
 
         TcUserAuthorSubscribe authorSubscribe = tcUserAuthorSubscribeService.getByUserIdAndAuthorId(weChatUser.getUserId(), authorId);

@@ -1,19 +1,21 @@
-package com.tcxx.serve.service.handler;
+package com.tcxx.serve.web.utils;
 
+import com.tcxx.serve.core.utils.XStreamUtil;
+import com.tcxx.serve.web.TcServeWebApplicationTests;
 import com.tcxx.serve.wechat.enumtype.MsgTypeEnum;
-import com.tcxx.serve.wechat.model.message.normal.TextMessage;
 import com.tcxx.serve.wechat.model.message.output.TextOutputMessage;
-import org.springframework.stereotype.Component;
+import org.junit.Test;
 
 import java.util.Date;
 
-@Component
-public class NormalMessageHandler {
+public class XStreamUtilTest extends TcServeWebApplicationTests {
 
-    public String handlerTextMessage(TextMessage msg) {
+    @Test
+    public void testBeanToXml() {
+
         TextOutputMessage textOutputMessage = new TextOutputMessage();
-        textOutputMessage.setToUserName(msg.getFromUserName());
-        textOutputMessage.setFromUserName(msg.getToUserName());
+        textOutputMessage.setToUserName("ToUserName");
+        textOutputMessage.setFromUserName("FromUserName");
         textOutputMessage.setCreateTime(new Date().getTime());
         textOutputMessage.setMsgType(MsgTypeEnum.TEXT.getType());
 
@@ -23,6 +25,6 @@ public class NormalMessageHandler {
         buffer.append("如有系统使用方面的疑问，可添加客服微信进行相关咨询，我们将竭诚为您服务。");
 
         textOutputMessage.setContent(buffer.toString());
-        return textOutputMessage.toXML();
+        System.out.println(XStreamUtil.getInstance().beanToXml(textOutputMessage));
     }
 }
