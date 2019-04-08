@@ -92,6 +92,13 @@ public final class RedisUtil {
         redisTemplate.opsForValue().set(key, value, time, TimeUnit.SECONDS);
     }
 
+    public boolean setNX(String key, Object value, long time) {
+        Preconditions.checkNotNull(key, "The key cannot be blank");
+        Preconditions.checkNotNull(value, "The value cannot be null");
+        Preconditions.checkArgument(time > 0, "Time must be greater than zero");
+        return redisTemplate.opsForValue().setIfAbsent(key, value, time, TimeUnit.SECONDS);
+    }
+
     /**
      * 递增
      * @param key 键

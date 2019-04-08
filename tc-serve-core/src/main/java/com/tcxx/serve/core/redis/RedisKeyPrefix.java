@@ -14,6 +14,8 @@ public class RedisKeyPrefix {
 
     public static final String TC_ADMIN_WECHAT_BASE_ACCESS_TOKEN = "wechat_base_access_token";
 
+    public static final String TC_ADMIN_WECHAT_PAY_NOTIFY = "wechat_pay_notify";
+
     public static String getTcBallRedisKey(String prefix, String value) {
         return String.format("%s_%s_%s", TC_BALL_PREFIX, prefix, value);
     }

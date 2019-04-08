@@ -41,8 +41,8 @@ public class OrderListResp {
     /** 第三方支付流水号 **/
     private String thirdPartyPayWaterNo;
 
-    /** 业务单号 **/
-    private String businessNo;
+    /** 业务数据 **/
+    private String businessData;
 
     /** 修改时间 **/
     private Date modified;

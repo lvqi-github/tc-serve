@@ -96,12 +96,39 @@
     </bean>
     <bean id="clearTemplateMessageDataJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail" ref="clearTemplateMessageDataJobDetail"/>
-        <property name="cronExpression" value="0 0 3-7 * * ? "/>
+        <property name="cronExpression" value="0 0 3-7 * * ?"/>
     </bean>
     <bean id="clearTemplateMessageDataJobScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="triggers">
             <list>
                 <ref bean="clearTemplateMessageDataJobTrigger"/>
+            </list>
+        </property>
+        <property name="autoStartup">
+            <value>false</value>
+        </property>
+        <property name="quartzProperties">
+            <props>
+                <prop key="org.quartz.threadPool.threadCount">1</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- 查询微信订单支付状态任务 30分钟执行一次  -->
+    <bean id="queryWeChatOrderPayStatusJobDetail"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="queryWeChatOrderPayStatusJob"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <bean id="queryWeChatOrderPayStatusJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="queryWeChatOrderPayStatusJobDetail"/>
+        <property name="cronExpression" value="0 0/30 * * * ?"/>
+    </bean>
+    <bean id="queryWeChatOrderPayStatusJobScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="queryWeChatOrderPayStatusJobTrigger"/>
             </list>
         </property>
         <property name="autoStartup">

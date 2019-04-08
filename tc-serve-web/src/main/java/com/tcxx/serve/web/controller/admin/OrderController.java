@@ -88,7 +88,7 @@ public class OrderController {
             resp.setPayChannelTypeName(OrderPayChannelTypeEnum.getByType(bean.getPayChannelType()));
             resp.setPayFinishTime(bean.getPayFinishTime());
             resp.setThirdPartyPayWaterNo(bean.getThirdPartyPayWaterNo());
-            resp.setBusinessNo(bean.getBusinessNo());
+            resp.setBusinessData(bean.getBusinessData());
             resp.setModified(bean.getModified());
             resp.setCreated(bean.getCreated());
             orderListResps.add(resp);

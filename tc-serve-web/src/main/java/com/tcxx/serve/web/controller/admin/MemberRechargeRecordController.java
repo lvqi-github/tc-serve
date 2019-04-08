@@ -72,6 +72,7 @@ public class MemberRechargeRecordController {
     private TcMemberRechargeRecordQuery buildGetMemberRechargeRecordListQuery(MemberRechargeRecordListReqQuery reqQuery, Page page) {
         TcMemberRechargeRecordQuery query = new TcMemberRechargeRecordQuery();
         query.setRechargeRecordNo(reqQuery.getRechargeRecordNo());
+        query.setOrderNo(reqQuery.getOrderNo());
         query.setUserId(reqQuery.getUserId());
         query.setPagingPageCurrent(page.getPage());
         query.setPagingPageSize(page.getPageSize());

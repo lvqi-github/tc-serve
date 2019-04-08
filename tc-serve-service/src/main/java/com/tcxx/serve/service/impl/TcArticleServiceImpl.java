@@ -7,7 +7,6 @@ import com.tcxx.serve.service.entity.TcArticle;
 import com.tcxx.serve.service.entity.TcTemplateMessagePush;
 import com.tcxx.serve.service.entity.TcUser;
 import com.tcxx.serve.service.entity.TcUserAuthorSubscribe;
-import com.tcxx.serve.service.enumtype.TemplateMessagePushStatusEnum;
 import com.tcxx.serve.service.enumtype.TemplateMessagePushTypeEnum;
 import com.tcxx.serve.service.manager.TcArticleManager;
 import com.tcxx.serve.service.manager.TcTemplateMessagePushManager;

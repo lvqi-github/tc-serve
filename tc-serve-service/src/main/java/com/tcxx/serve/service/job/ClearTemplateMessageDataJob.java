@@ -24,7 +24,7 @@ public class ClearTemplateMessageDataJob {
                 try {
                     tcTemplateMessagePushService.deleteByPushId(tcTemplateMessagePush.getPushId());
                 }catch (Exception e) {
-                    log.error("ClearTemplateMessageDataJob#execute clearTemplateMessageData error", e);
+                    log.error("ClearTemplateMessageDataJob#execute deleteByPushId error", e);
                 }
             }
         }catch (Exception e){

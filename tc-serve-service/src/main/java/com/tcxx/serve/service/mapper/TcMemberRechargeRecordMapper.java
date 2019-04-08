@@ -9,9 +9,7 @@ public interface TcMemberRechargeRecordMapper {
 
     int insert(TcMemberRechargeRecord tcMemberRechargeRecord);
 
-    int updateRecordValidStatus(TcMemberRechargeRecord tcMemberRechargeRecord);
-
-    TcMemberRechargeRecord getByRechargeRecordNo(TcMemberRechargeRecordQuery query);
+    TcMemberRechargeRecord getByOrderNo(TcMemberRechargeRecordQuery query);
 
     List<TcMemberRechargeRecord> listByCondition(TcMemberRechargeRecordQuery query);
 

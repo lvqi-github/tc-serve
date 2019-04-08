@@ -17,7 +17,7 @@ public class TcOrder {
     /** 订单类型 1-会员充值订单 2-文章购买订单 **/
     private Integer orderType;
 
-    /** 订单支付状态 1-未支付 2-支付完成 99-已作废 **/
+    /** 订单支付状态 1-未支付 2-支付完成 3-支付失败 98-支付关闭 99-已作废 **/
     private Integer orderPayStatus;
 
     /** 用户id **/
@@ -32,8 +32,8 @@ public class TcOrder {
     /** 第三方支付流水号 **/
     private String thirdPartyPayWaterNo;
 
-    /** 业务单号 **/
-    private String businessNo;
+    /** 业务数据 **/
+    private String businessData;
 
     /** 修改时间 **/
     private Date modified;

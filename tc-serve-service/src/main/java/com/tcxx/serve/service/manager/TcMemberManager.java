@@ -7,6 +7,10 @@ import java.util.List;
 
 public interface TcMemberManager {
 
+    boolean insert(TcMember tcMember);
+
+    boolean updateMemberEndDate(TcMember tcMember);
+
     TcMember getByUserId(String userId);
 
     List<TcMember> listByCondition(TcMemberQuery query);

@@ -17,8 +17,6 @@ public class DefaultMessageHandler {
     private EventMessageHandler eventMessageHandler;
 
     public String invoke(String inputXml) {
-        XStreamUtil.getInstance().setXStreamAllowTypes(new Class[]{InputPublicMessage.class});
-        XStreamUtil.getInstance().setXStreamProcessAnnotations(new Class[]{InputPublicMessage.class});
         InputPublicMessage inputPublicMessage = XStreamUtil.getInstance().xmlToBean(inputXml, InputPublicMessage.class);
 
         // 取得消息类型

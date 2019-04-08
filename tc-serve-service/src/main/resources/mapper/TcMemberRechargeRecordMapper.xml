@@ -56,26 +56,18 @@
         )
     </insert>
 
-    <update id="updateRecordValidStatus" parameterType="com.tcxx.serve.service.entity.TcMemberRechargeRecord" >
-        UPDATE <include refid="TbName"/>
-        SET
-        record_valid_status = #{recordValidStatus},
-        modified = now()
-        WHERE
-        recharge_record_no = #{rechargeRecordNo}
-    </update>
-
-    <select id="getByRechargeRecordNo" resultMap="BaseResultMap" parameterType="com.tcxx.serve.service.query.TcMemberRechargeRecordQuery" >
+    <select id="getByOrderNo" resultMap="BaseResultMap" parameterType="com.tcxx.serve.service.query.TcMemberRechargeRecordQuery" >
         SELECT <include refid="TbColumns"/>
         FROM <include refid="TbName"/>
         WHERE
-        recharge_record_no = #{rechargeRecordNo}
+        order_no = #{orderNo}
     </select>
 
     <select id="listByCondition" parameterType="com.tcxx.serve.service.query.TcMemberRechargeRecordQuery" resultMap="BaseResultMap">
         SELECT <include refid="TbColumns"/>
         FROM <include refid="TbName"/>
         <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="orderNo != null"> AND order_no = #{orderNo}</if>
             <if test="userId != null and userId != ''"> AND user_id = #{userId}</if>
             <if test="recordValidStatus != null"> AND record_valid_status = #{recordValidStatus}</if>
         </trim>
@@ -89,6 +81,7 @@
         FROM
         <include refid="TbName"/>
         <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="orderNo != null"> AND order_no = #{orderNo}</if>
             <if test="userId != null and userId != ''"> AND user_id = #{userId}</if>
             <if test="recordValidStatus != null"> AND record_valid_status = #{recordValidStatus}</if>
         </trim>

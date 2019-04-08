@@ -16,6 +16,9 @@ public class TcMember {
     /** 会员结束时间 **/
     private Date memberEndDate;
 
+    /** 版本号 **/
+    private Integer version;
+
     /** 修改时间 **/
     private Date modified;
 

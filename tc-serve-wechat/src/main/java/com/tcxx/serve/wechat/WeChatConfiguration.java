@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Data
 @Component
-@ConfigurationProperties(prefix = "wechat", ignoreUnknownFields = false)
+@ConfigurationProperties(prefix = "wechat.mp", ignoreUnknownFields = false)
 @PropertySource(value = "classpath:wechat.properties")
 public class WeChatConfiguration {
 

@@ -21,6 +21,7 @@ public enum ResultCodeEnum {
     ERROR2501("2501", "DataBase操作异常"),
 
     ERROR3001("3001", "微信([{0}])接口调用异常，微信errCode=[{1}]，微信errMsg=[{2}]"),
+    ERROR3002("3002", "微信支付([{0}])接口调用异常"),
 
     ERROR4001("4001", "参数校验异常[{0}]"),
 

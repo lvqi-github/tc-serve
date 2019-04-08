@@ -2,13 +2,14 @@ package com.tcxx.serve.service.entity;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
 public class TcArticlePurchaseRecord {
 
     /** 购买记录号 **/
-    private String purchaseRecordNo;
+    private Long purchaseRecordNo;
 
     /** 文章id **/
     private String articleId;
@@ -20,10 +21,10 @@ public class TcArticlePurchaseRecord {
     private String articleDesc;
 
     /** 文章发布时间 **/
-    private String articleReleaseTime;
+    private Date articleReleaseTime;
 
     /** 金额 **/
-    private String amount;
+    private BigDecimal amount;
 
     /** 用户id **/
     private String userId;

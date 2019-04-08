@@ -7,6 +7,10 @@ import java.util.List;
 
 public interface TcMemberRechargeRecordManager {
 
+    boolean insert(TcMemberRechargeRecord tcMemberRechargeRecord);
+
+    TcMemberRechargeRecord getByOrderNo(Long orderNo);
+
     List<TcMemberRechargeRecord> listByCondition(TcMemberRechargeRecordQuery query);
 
     Integer countByCondition(TcMemberRechargeRecordQuery query);

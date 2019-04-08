@@ -7,6 +7,10 @@ import java.util.List;
 
 public interface TcArticlePurchaseRecordManager {
 
+    boolean insert(TcArticlePurchaseRecord tcArticlePurchaseRecord);
+
+    TcArticlePurchaseRecord getByOrderNo(Long orderNo);
+
     List<TcArticlePurchaseRecord> listByCondition(TcArticlePurchaseRecordQuery query);
 
     Integer countByCondition(TcArticlePurchaseRecordQuery query);

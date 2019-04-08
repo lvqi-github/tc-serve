@@ -11,7 +11,7 @@
         <result column="pay_channel_type" property="payChannelType" />
         <result column="pay_finish_time" property="payFinishTime" />
         <result column="third_party_pay_water_no" property="thirdPartyPayWaterNo" />
-        <result column="business_no" property="businessNo" />
+        <result column="business_data" property="businessData" />
         <result column="modified" property="modified" />
         <result column="created" property="created" />
     </resultMap>
@@ -30,7 +30,7 @@
 		pay_channel_type,
 		pay_finish_time,
 		third_party_pay_water_no,
-		business_no,
+		business_data,
 		modified,
 		created
 	</sql>
@@ -47,7 +47,7 @@
         #{payChannelType},
         #{payFinishTime},
         #{thirdPartyPayWaterNo},
-        #{businessNo},
+        #{businessData},
         NOW(),
         NOW()
         )
@@ -62,6 +62,37 @@
         modified = now()
         WHERE
         order_no = #{orderNo}
+        AND order_pay_status = 1
+    </update>
+
+    <update id="updateOrderPayFail" parameterType="com.tcxx.serve.service.entity.TcOrder" >
+        UPDATE <include refid="TbName"/>
+        SET
+        order_pay_status = 3,
+        modified = now()
+        WHERE
+        order_no = #{orderNo}
+        AND order_pay_status = 1
+    </update>
+
+    <update id="updateOrderPayClosed" parameterType="com.tcxx.serve.service.entity.TcOrder" >
+        UPDATE <include refid="TbName"/>
+        SET
+        order_pay_status = 98,
+        modified = now()
+        WHERE
+        order_no = #{orderNo}
+        AND order_pay_status = 1
+    </update>
+
+    <update id="updateOrderPayCancel" parameterType="com.tcxx.serve.service.entity.TcOrder" >
+        UPDATE <include refid="TbName"/>
+        SET
+        order_pay_status = 99,
+        modified = now()
+        WHERE
+        order_no = #{orderNo}
+        AND order_pay_status = 1
     </update>
 
     <select id="getByOrderNo" resultMap="BaseResultMap" parameterType="com.tcxx.serve.service.query.TcOrderQuery" >
@@ -69,6 +100,18 @@
         FROM <include refid="TbName"/>
         WHERE
         order_no = #{orderNo}
+    </select>
+
+    <select id="listNotPayOrder" parameterType="com.tcxx.serve.service.query.TcOrderQuery" resultMap="BaseResultMap">
+        SELECT <include refid="TbColumns"/>
+        FROM <include refid="TbName"/>
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            AND created &gt;= DATE_SUB(NOW(), INTERVAL 3 DAY)
+            AND created &lt;= DATE_SUB(NOW(), INTERVAL 30 MINUTE)
+            AND order_pay_status = 1
+        </trim>
+        ORDER BY created ASC
+        LIMIT #{pagingPageSize}
     </select>
 
     <select id="listByCondition" parameterType="com.tcxx.serve.service.query.TcOrderQuery" resultMap="BaseResultMap">

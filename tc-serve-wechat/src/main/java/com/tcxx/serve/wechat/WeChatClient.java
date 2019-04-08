@@ -13,7 +13,11 @@ import java.util.Map;
 @Component
 public class WeChatClient {
 
+    @Getter
     private WeChatConfiguration weChatConfiguration;
+
+    @Getter
+    private WeChatPayConfiguration weChatPayConfiguration;
 
     private RedisUtil redisUtil;
 
@@ -30,8 +34,9 @@ public class WeChatClient {
     private final String appSecret;
 
     @Autowired
-    public WeChatClient(WeChatConfiguration weChatConfiguration, RedisUtil redisUtil) {
+    public WeChatClient(WeChatConfiguration weChatConfiguration, WeChatPayConfiguration weChatPayConfiguration, RedisUtil redisUtil) {
         this.weChatConfiguration = weChatConfiguration;
+        this.weChatPayConfiguration = weChatPayConfiguration;
         this.redisUtil = redisUtil;
         this.appId = weChatConfiguration.getAppId();
         this.appSecret = weChatConfiguration.getAppSecret();
@@ -92,6 +97,16 @@ public class WeChatClient {
             return (UserComponent) components.get(key);
         }
         UserComponent component = new UserComponent(this);
+        components.put(key, component);
+        return component;
+    }
+
+    public PayComponent pay() {
+        String key = PayComponent.class.getName();
+        if (components.containsKey(key)) {
+            return (PayComponent) components.get(key);
+        }
+        PayComponent component = new PayComponent(this);
         components.put(key, component);
         return component;
     }

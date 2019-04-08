@@ -16,6 +16,16 @@ public class TcMemberManagerImpl implements TcMemberManager {
     private TcMemberMapper tcMemberMapper;
 
     @Override
+    public boolean insert(TcMember tcMember) {
+        return 1 == tcMemberMapper.insert(tcMember);
+    }
+
+    @Override
+    public boolean updateMemberEndDate(TcMember tcMember) {
+        return 1 == tcMemberMapper.updateMemberEndDate(tcMember);
+    }
+
+    @Override
     public TcMember getByUserId(String userId) {
         TcMemberQuery query = new TcMemberQuery();
         query.setUserId(userId);

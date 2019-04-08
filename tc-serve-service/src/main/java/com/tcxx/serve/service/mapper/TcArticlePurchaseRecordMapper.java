@@ -9,9 +9,7 @@ public interface TcArticlePurchaseRecordMapper {
 
     int insert(TcArticlePurchaseRecord tcArticlePurchaseRecord);
 
-    int updateRecordValidStatus(TcArticlePurchaseRecord tcArticlePurchaseRecord);
-
-    TcArticlePurchaseRecord getByPurchaseRecordNo(TcArticlePurchaseRecordQuery query);
+    TcArticlePurchaseRecord getByOrderNo(TcArticlePurchaseRecordQuery query);
 
     List<TcArticlePurchaseRecord> listByCondition(TcArticlePurchaseRecordQuery query);
 

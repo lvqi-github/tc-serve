@@ -182,8 +182,7 @@ public class HttpClientUtil {
      * 发送 POST 请求，JSON形式
      *
      * @param apiUrl
-     * @param json
-     *            json对象
+     * @param json json对象
      * @return
      */
     public static JSONObject doPost(String apiUrl, Object json) {
@@ -220,6 +219,49 @@ public class HttpClientUtil {
             }
         }
         return JSON.parseObject(httpStr);
+    }
+
+    /**
+     * 发送 POST 请求，xml形式
+     *
+     * @param apiUrl
+     * @param xml
+     * @return
+     */
+    public static String doPostXml(String apiUrl, String xml) {
+        CloseableHttpClient httpClient = null;
+        if (apiUrl.startsWith("https")) {
+            httpClient = HttpClients.custom().setSSLSocketFactory(createSSLConnSocketFactory())
+                    .setConnectionManager(connMgr).setDefaultRequestConfig(requestConfig).build();
+        } else {
+            httpClient = HttpClients.createDefault();
+        }
+        String httpStr = null;
+        HttpPost httpPost = new HttpPost(apiUrl);
+        CloseableHttpResponse response = null;
+
+        try {
+            httpPost.setConfig(requestConfig);
+            StringEntity stringEntity = new StringEntity(xml, "UTF-8");// 解决中文乱码问题
+            stringEntity.setContentEncoding("UTF-8");
+            stringEntity.setContentType("text/xml");
+            httpPost.setEntity(stringEntity);
+            response = httpClient.execute(httpPost);
+            HttpEntity entity = response.getEntity();
+            httpStr = EntityUtils.toString(entity, "UTF-8");
+        } catch (IOException e) {
+            log.error("http post xml error", e);
+            throw new HttpRequestRuntimeException(ResultCodeEnum.ERROR2001);
+        } finally {
+            if (response != null) {
+                try {
+                    EntityUtils.consume(response.getEntity());
+                } catch (IOException e) {
+                    log.error("http post xml consume error", e);
+                }
+            }
+        }
+        return httpStr;
     }
 
     /**

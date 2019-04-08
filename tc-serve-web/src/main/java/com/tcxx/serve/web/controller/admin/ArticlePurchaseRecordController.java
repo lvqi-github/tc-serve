@@ -71,6 +71,7 @@ public class ArticlePurchaseRecordController {
     private TcArticlePurchaseRecordQuery buildGetArticlePurchaseRecordListQuery(ArticlePurchaseRecordListReqQuery reqQuery, Page page) {
         TcArticlePurchaseRecordQuery query = new TcArticlePurchaseRecordQuery();
         query.setPurchaseRecordNo(reqQuery.getPurchaseRecordNo());
+        query.setOrderNo(reqQuery.getOrderNo());
         query.setUserId(reqQuery.getUserId());
         query.setPagingPageCurrent(page.getPage());
         query.setPagingPageSize(page.getPageSize());

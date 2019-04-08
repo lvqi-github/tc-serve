@@ -9,10 +9,13 @@
 
         <!-- 以下为可选配置, 如未指定将采用默认值 -->
         <!-- Specified bits & epoch as your demand. No specified the default value will be used -->
-        <property name="timeBits" value="29"/>
-        <property name="workerBits" value="21"/>
-        <property name="seqBits" value="13"/>
-        <property name="epochStr" value="2019-01-01"/>
+        <!--对于并发数要求不高、期望长期使用的应用, 可增加timeBits位数, 减少seqBits位数. -->
+        <!--例如节点采取用完即弃的WorkerIdAssigner策略, 重启频率为12次/天, 那么配置成{"workerBits":23,"timeBits":31,"seqBits":9}时, -->
+        <!--可支持28个节点以整体并发量14400 UID/s的速度持续运行68年-->
+        <property name="timeBits" value="31"/>
+        <property name="workerBits" value="23"/>
+        <property name="seqBits" value="9"/>
+        <property name="epochStr" value="2019-04-01"/>
 
         <!-- RingBuffer size扩容参数, 可提高UID生成的吞吐量. -->
         <!-- 默认:3， 原bufferSize=8192, 扩容后bufferSize= 8192 << 3 = 65536 -->

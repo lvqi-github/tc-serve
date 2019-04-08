@@ -9,7 +9,9 @@ public enum OrderPayStatusEnum {
 
     DID_NOT_PAY(1, "未支付"),
     PAY_TO_COMPLETE(2, "支付完成"),
-    CANCELLATION(99, "已作废");
+    PAY_FAIL(3, "支付失败"),
+    PAY_CLOSED(98, "支付关闭"),
+    CANCEL(99, "已作废");
 
     /** 状态 */
     private int status;
