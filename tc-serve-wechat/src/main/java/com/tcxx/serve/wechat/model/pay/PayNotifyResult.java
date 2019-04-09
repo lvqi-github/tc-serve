@@ -2,10 +2,12 @@ package com.tcxx.serve.wechat.model.pay;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@ToString
 @Data
 @XStreamAlias("xml")
 public class PayNotifyResult {
@@ -153,10 +155,10 @@ public class PayNotifyResult {
         map.put("is_subscribe", this.getIsSubscribe());
         map.put("trade_type", this.getTradeType());
         map.put("bank_type", this.getBankType());
-        map.put("total_fee", String.valueOf(this.getTotalFee()));
-        map.put("settlement_total_fee", String.valueOf(this.getSettlementTotalFee()));
+        map.put("total_fee", this.getTotalFee() != null ? String.valueOf(this.getTotalFee()) : null);
+        map.put("settlement_total_fee", this.getSettlementTotalFee() != null ? String.valueOf(this.getSettlementTotalFee()) : null);
         map.put("fee_type", this.getFeeType());
-        map.put("cash_fee", String.valueOf(this.getCashFee()));
+        map.put("cash_fee", this.getCashFee() != null ? String.valueOf(this.getCashFee()) : null);
         map.put("cash_fee_type", this.getCashFeeType());
         map.put("transaction_id", this.getTransactionId());
         map.put("out_trade_no", this.getOutTradeNo());

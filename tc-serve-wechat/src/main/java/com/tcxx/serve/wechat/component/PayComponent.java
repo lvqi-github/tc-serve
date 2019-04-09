@@ -21,8 +21,8 @@ public class PayComponent extends AbstractComponent {
         //将统一下单对象转成XML
         String xmlPost = unifiedOrder.toXML();
 
-//        String xmlPostResult = HttpClientUtil.doPostXml("https://api.mch.weixin.qq.com/pay/unifiedorder", xmlPost);
-        String xmlPostResult = HttpClientUtil.doPostXml("https://api.mch.weixin.qq.com/sandboxnew/pay/unifiedorder", xmlPost); //沙箱环境
+        String xmlPostResult = HttpClientUtil.doPostXml("https://api.mch.weixin.qq.com/pay/unifiedorder", xmlPost);
+//        String xmlPostResult = HttpClientUtil.doPostXml("https://api.mch.weixin.qq.com/sandboxnew/pay/unifiedorder", xmlPost); //沙箱环境
 
         UnifiedOrderResult unifiedOrderResult = XStreamUtil.getInstance().xmlToBean(xmlPostResult, UnifiedOrderResult.class);
         return unifiedOrderResult;
@@ -38,8 +38,8 @@ public class PayComponent extends AbstractComponent {
         //将统一下单对象转成XML
         String xmlPost = orderQuery.toXML();
 
-//        String xmlPostResult = HttpClientUtil.doPostXml("https://api.mch.weixin.qq.com/pay/orderquery", xmlPost);
-        String xmlPostResult = HttpClientUtil.doPostXml("https://api.mch.weixin.qq.com/sandboxnew/pay/orderquery", xmlPost); //沙箱环境
+        String xmlPostResult = HttpClientUtil.doPostXml("https://api.mch.weixin.qq.com/pay/orderquery", xmlPost);
+//        String xmlPostResult = HttpClientUtil.doPostXml("https://api.mch.weixin.qq.com/sandboxnew/pay/orderquery", xmlPost); //沙箱环境
 
         OrderQueryResult orderQueryResult = XStreamUtil.getInstance().xmlToBean(xmlPostResult, OrderQueryResult.class);
         return orderQueryResult;
@@ -55,8 +55,8 @@ public class PayComponent extends AbstractComponent {
         //将统一下单对象转成XML
         String xmlPost = closeOrder.toXML();
 
-//        String xmlPostResult = HttpClientUtil.doPostXml("https://api.mch.weixin.qq.com/pay/closeorder", xmlPost);
-        String xmlPostResult = HttpClientUtil.doPostXml("https://api.mch.weixin.qq.com/sandboxnew/pay/closeorder", xmlPost); //沙箱环境
+        String xmlPostResult = HttpClientUtil.doPostXml("https://api.mch.weixin.qq.com/pay/closeorder", xmlPost);
+//        String xmlPostResult = HttpClientUtil.doPostXml("https://api.mch.weixin.qq.com/sandboxnew/pay/closeorder", xmlPost); //沙箱环境
 
         CloseOrderResult closeOrderResult = XStreamUtil.getInstance().xmlToBean(xmlPostResult, CloseOrderResult.class);
         return closeOrderResult;

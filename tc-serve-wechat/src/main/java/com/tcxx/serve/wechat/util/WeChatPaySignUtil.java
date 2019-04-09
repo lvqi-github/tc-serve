@@ -44,6 +44,7 @@ public class WeChatPaySignUtil {
                 sb.append(key + "=" + value + "&");
             }
         }
+        System.out.println(String.format("%s&key=%s", sb.toString(), appSecret));
 
         return DigestUtils.md5Hex(String.format("%s&key=%s", sb.toString(), appSecret)).toUpperCase();
     }

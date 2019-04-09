@@ -91,6 +91,7 @@ public class PersonalController {
         articlePurchaseRecordList.stream().forEach(bean -> {
             BallArticlePurchaseRecordListResp resp = new BallArticlePurchaseRecordListResp();
             resp.setPurchaseRecordNo(bean.getPurchaseRecordNo());
+            resp.setArticleId(bean.getArticleId());
             resp.setArticleTitle(bean.getArticleTitle());
             resp.setArticleDesc(bean.getArticleDesc());
             resp.setAmount(bean.getAmount());

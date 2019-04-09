@@ -75,6 +75,10 @@ public class QueryWeChatOrderPayStatusJob {
                                 tcOrderService.updateOrderPayFail(tcOrder.getOrderNo());
                             }
                         }else {
+                            log.error("QueryWeChatOrderPayStatusJob#execute payOrderQuery ResultCode异常, returnCode={}, returnMsg={}, resultCode={}, errCode={}, errCodeDes={}",
+                                    orderQueryResult.getReturnCode(), orderQueryResult.getReturnMsg(),
+                                    orderQueryResult.getResultCode(), orderQueryResult.getErrCode(), orderQueryResult.getErrCodeDes());
+
                             if (orderQueryResult.getErrCode().equals("ORDERNOTEXIST")){
                                 // 微信支付系统中无此订单号 修改订单状态为 已作废
                                 tcOrderService.updateOrderPayCancel(tcOrder.getOrderNo());

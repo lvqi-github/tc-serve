@@ -142,7 +142,7 @@ public class TcArticleServiceImpl implements TcArticleService {
 
         TemplateData authorData = new TemplateData();
         authorData.setValue(tcArticle.getAuthorName());
-        authorData.setColor("#FF0000");
+        authorData.setColor("#0000FF");
         data.put("keyword2", authorData);
 
         TemplateData releaseTimeData = new TemplateData();

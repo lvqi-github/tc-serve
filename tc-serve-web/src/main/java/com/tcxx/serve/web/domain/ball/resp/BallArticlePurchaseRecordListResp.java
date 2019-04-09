@@ -11,6 +11,9 @@ public class BallArticlePurchaseRecordListResp {
     /** 购买记录号 **/
     private Long purchaseRecordNo;
 
+    /** 文章id **/
+    private String articleId;
+
     /** 文章标题 **/
     private String articleTitle;
 

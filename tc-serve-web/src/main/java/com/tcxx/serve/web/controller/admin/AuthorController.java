@@ -8,6 +8,7 @@ import com.tcxx.serve.service.TcAuthorService;
 import com.tcxx.serve.service.entity.TcAuthor;
 import com.tcxx.serve.service.enumtype.AuthorPlatformSourceEnum;
 import com.tcxx.serve.web.domain.Page;
+import com.tcxx.serve.web.domain.admin.resp.AuthorListResp;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,7 @@ public class AuthorController {
 
     @AdminLoginTokenValidation
     @RequestMapping("/getAuthorList")
-    public Result<TcAuthor> getAuthorList(Page page) {
+    public Result<AuthorListResp> getAuthorList(Page page) {
         if (Objects.isNull(page)){
             return ResultBuild.wrapResult(ResultCodeEnum.ERROR4001, "page信息不能为空");
         }
@@ -39,14 +40,22 @@ public class AuthorController {
 
         Integer count = tcAuthorService.countAll();
         List<TcAuthor> authorList = tcAuthorService.listAllPage(page.getPage(), page.getPageSize());
-        authorList.stream().filter(bean -> {
-            bean.setPlatformSource(AuthorPlatformSourceEnum.getByPlatformCode(bean.getPlatformSource()));
-            return true;
-        }).collect(Collectors.toList());
 
-        Result<TcAuthor> result = ResultBuild.wrapSuccess();
+        List<AuthorListResp> authorListResps = new ArrayList<>();
+        authorList.stream().forEach(bean -> {
+            AuthorListResp resp = new AuthorListResp();
+            resp.setAuthorId(bean.getAuthorId());
+            resp.setAuthorName(bean.getAuthorName());
+            resp.setPlatformSource(bean.getPlatformSource());
+            resp.setPlatformSourceName(AuthorPlatformSourceEnum.getByPlatformCode(bean.getPlatformSource()));
+            resp.setModified(bean.getModified());
+            resp.setCreated(bean.getCreated());
+            authorListResps.add(resp);
+        });
+
+        Result<AuthorListResp> result = ResultBuild.wrapSuccess();
         result.setTotalElements(count);
-        result.setValues(authorList);
+        result.setValues(authorListResps);
         return result;
     }
 

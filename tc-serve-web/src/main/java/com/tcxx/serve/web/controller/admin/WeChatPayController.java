@@ -51,29 +51,31 @@ public class WeChatPayController {
     @PassTokenValidation
     @RequestMapping(value = "/notifyPayResult", method = RequestMethod.POST)
     public String notifyPayResult(@RequestBody String requestBody) {
-        log.info("requestBody=" + requestBody);
         // 解析请求
         PayNotifyResult payNotifyResult = XStreamUtil.getInstance().xmlToBean(requestBody, PayNotifyResult.class);
         // 校验消息是否合法
         String sign = WeChatPaySignUtil.buildSign(payNotifyResult.toMap(), weChatClient.getWeChatPayConfiguration().getApiSecretKey(), true);
         if (!sign.equals(payNotifyResult.getSign())){
             // 非法请求不处理
+            log.error("WeChatPayController#notifyPayResult 签名验证失败, sign={}, requestBody={}", sign, requestBody);
             return buildFailResult();
         }
         // 校验订单信息
         TcOrder tcOrder = tcOrderService.getByOrderNo(Long.valueOf(payNotifyResult.getOutTradeNo()));
         if (Objects.isNull(tcOrder)){
             // 非法请求不处理
+            log.error("WeChatPayController#notifyPayResult 订单无效, PayNotifyResult={}", payNotifyResult);
             return buildFailResult();
         }
         // 校验金额
         if(!payNotifyResult.getTotalFee().equals(tcOrder.getOrderAmount().multiply(BigDecimal.valueOf(100)).intValue())){
             // 非法请求不处理
+            log.error("WeChatPayController#notifyPayResult 订单金额校验失败, PayNotifyResult={}", payNotifyResult);
             return buildFailResult();
         }
         // 校验订单状态
         if (!tcOrder.getOrderPayStatus().equals(OrderPayStatusEnum.DID_NOT_PAY.getStatus())){
-            //已经处理过
+            //已经处理过 返回成功
             return buildSuccessResult();
         }
         // 获取请求锁

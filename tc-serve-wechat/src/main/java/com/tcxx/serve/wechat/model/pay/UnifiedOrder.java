@@ -127,7 +127,7 @@ public class UnifiedOrder {
         map.put("nonce_str", this.getNonceStr());
         map.put("body", this.getBody());
         map.put("out_trade_no", this.getOutTradeNo());
-        map.put("total_fee", String.valueOf(this.getTotalFee()));
+        map.put("total_fee", this.getTotalFee() != null ? String.valueOf(this.getTotalFee()) : null);
         map.put("spbill_create_ip", this.getSpbillCreateIp());
         map.put("notify_url", this.getNotifyUrl());
         map.put("trade_type", this.getTradeType());

@@ -1,6 +1,5 @@
 package com.tcxx.serve.web.domain.admin.resp;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.util.Date;
@@ -15,7 +14,6 @@ public class MemberListResp {
     private Date firstMemberOpenTime;
 
     /** 会员结束时间 **/
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
     private Date memberEndDate;
 
     /** 会员是否有效 1-有效 2-无效 **/
