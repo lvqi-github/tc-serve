@@ -17,8 +17,6 @@
         <result column="price" property="price"/>
         <result column="release_status" property="releaseStatus"/>
         <result column="article_status" property="articleStatus"/>
-        <result column="start_time" property="startTime"/>
-        <result column="end_time" property="endTime"/>
         <result column="push_job_status" property="pushJobStatus"/>
         <result column="modified" property="modified"/>
         <result column="created" property="created"/>
@@ -31,7 +29,7 @@
     <!-- 用于select查询、insert的公用抽取的列 -->
     <sql id="TbColumns">
 		article_id,article_title,article_desc,article_type,article_preview_text,article_preview_img,article_content_text,article_content_img,
-		author_id,author_name,charge_type,price,release_status,article_status,start_time,end_time,push_job_status,modified,created
+		author_id,author_name,charge_type,price,release_status,article_status,push_job_status,modified,created
 	</sql>
 
     <insert id="insert" parameterType="com.tcxx.serve.service.entity.TcArticle">
@@ -54,8 +52,6 @@
         #{price},
         #{releaseStatus},
         #{articleStatus},
-        #{startTime},
-        #{endTime},
         #{pushJobStatus},
         NOW(),
         NOW()
@@ -79,8 +75,6 @@
         price = #{price},
         release_status = #{releaseStatus},
         article_status = #{articleStatus},
-        start_time = #{startTime},
-        end_time = #{endTime},
         modified = now()
         WHERE
         article_id = #{articleId}

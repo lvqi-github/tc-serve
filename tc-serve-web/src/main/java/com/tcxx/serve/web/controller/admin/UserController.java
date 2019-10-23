@@ -40,6 +40,8 @@ public class UserController {
 
         TcUserQuery query = new TcUserQuery();
         query.setNickName(nickName);
+        query.setPagingPageCurrent(page.getPage());
+        query.setPagingPageSize(page.getPageSize());
         Integer count = tcUserService.countByCondition(query);
         List<TcUser> userList = tcUserService.listByCondition(query);
 

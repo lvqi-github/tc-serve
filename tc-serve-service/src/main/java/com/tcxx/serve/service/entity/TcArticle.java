@@ -51,14 +51,6 @@ public class TcArticle {
     /** 文章状态：1-未开始 2-进行中 3-已结束 **/
     private Integer articleStatus;
 
-    /** 开始时间 **/
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    private Date startTime;
-
-    /** 结束时间 **/
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    private Date endTime;
-
     /** 推送任务状态 1-未生成推送任务 2-已生成推送任务 **/
     private Integer pushJobStatus;
 

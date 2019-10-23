@@ -65,8 +65,6 @@ public class ArticleController {
             resp.setReleaseStatusName(ArticleReleaseStatusEnum.getByStatus(bean.getReleaseStatus()));
             resp.setArticleStatus(bean.getArticleStatus());
             resp.setArticleStatusName(ArticleStatusEnum.getByStatus(bean.getArticleStatus()));
-            resp.setStartTime(bean.getStartTime());
-            resp.setEndTime(bean.getEndTime());
             resp.setPushJobStatus(bean.getPushJobStatus());
             resp.setPushJobStatusName(ArticlePushJobStatusEnum.getByStatus(bean.getPushJobStatus()));
             resp.setModified(bean.getModified());
