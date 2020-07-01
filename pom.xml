@@ -31,7 +31,7 @@
         <mysql.version>8.0.13</mysql.version>
         <druid.version>1.1.10</druid.version>
         <mybatis.version>2.0.0</mybatis.version>
-        <quartz.version>2.3.0</quartz.version>
+        <quartz.version>2.3.2</quartz.version>
 
         <commons-lang.version>2.6</commons-lang.version>
         <commons-pool2.version>2.6.0</commons-pool2.version>
