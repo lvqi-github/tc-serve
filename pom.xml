@@ -35,7 +35,7 @@
 
         <commons-lang.version>2.6</commons-lang.version>
         <commons-pool2.version>2.6.0</commons-pool2.version>
-        <commons-io.version>2.4</commons-io.version>
+        <commons-io.version>2.7</commons-io.version>
         <commons-codec.version>1.10</commons-codec.version>
         <xstream.version>1.4.10</xstream.version>
         <httpmime.version>4.5.2</httpmime.version>
